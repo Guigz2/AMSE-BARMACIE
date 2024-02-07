@@ -59,9 +59,15 @@ class _MyHomePageState extends State<MyHomePage> {
     Widget page;
     switch (selectedIndex) {
       case 0:
-        page = GeneratorPage();
+        page = GeneratorFilm();
         break;
       case 1:
+        page = Placeholder();
+        break;
+      case 2:
+        page = Placeholder();
+        break;
+      case 3:
         page = FavoritesPage();
         break;
       default:
@@ -77,8 +83,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   extended: contraints.maxWidth >= 600,
                   destinations: [
                     NavigationRailDestination(
-                      icon: Icon(Icons.home),
-                      label: Text('Home'),
+                      icon: Icon(Icons.movie),
+                      label: Text('Films'),
+                    ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.live_tv),
+                      label: Text('Séries'),
+                    ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.sports_handball),
+                      label: Text('Sports'),
                     ),
                     NavigationRailDestination(
                       icon: Icon(Icons.favorite),
@@ -107,11 +121,25 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class GeneratorPage extends StatelessWidget {
+class GeneratorFilm extends StatelessWidget {
+  //Récupérer la liste des films
+  //A FAIRE, ce qu'il y a en dessous c'est des tests,
+  final List<String> likedMovies = [
+    "Film 1",
+    "Film 2",
+    "Film 3",
+  ];
+
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
-    var pair = appState.current;
+
+    if (likedMovies.isEmpty) {
+      return Center(child: Text("No film yet"),
+      );
+    }
+
+    var pair = likedMovies;
 
     IconData icon;
     if (appState.favorites.contains(pair)) {
@@ -120,36 +148,36 @@ class GeneratorPage extends StatelessWidget {
       icon = Icons.favorite_border;
     }
 
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          BigCard(pair: pair),
-          SizedBox(height: 10),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ElevatedButton.icon(
-                onPressed: () {
-                  appState.toggleFavorite();
-                },
-                icon: Icon(icon),
-                label: Text('Like'),
-              ),
-              SizedBox(width: 10),
-              ElevatedButton(
-                onPressed: () {
-                  appState.getNext();
-                },
-                child: Text('Next'),
-              ),
-            ],
+    return ListView(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(20),
+          child : Text('You have '
+                '${likedMovies.length} films:'),
+        ),
+        for (var pair in likedMovies)
+          ListTile(
+            leading: Icon(Icons.fiber_manual_record_outlined),
+            title: Row(
+              children: [
+                Expanded(
+                  child: Text(pair), 
+                ),
+                ElevatedButton.icon(
+                  onPressed: () {
+                    appState.toggleFavorite();
+                  },
+                  icon: Icon(icon),
+                  label: Text('Like'),
+                ),
+              ],
+            ),
           ),
-        ],
-      ),
+      ],
     );
   }
 }
+
 
 class FavoritesPage extends StatelessWidget {
   @override

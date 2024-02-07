@@ -1,0 +1,11 @@
+{
+    "films": [
+      {
+        "titre": "Inception",
+        "realisateur": "Christopher Nolan",
+        "annee": 2010,
+        "affiche": "assets/inception_affiche.jpg"
+      }
+    ]
+  }
+  

@@ -1,3 +1,3 @@
 # READ ME
 
-projet AMSE test
+projet AMSE Guillaume EGU - Baptiste PLAGNE

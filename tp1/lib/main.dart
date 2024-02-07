@@ -1,6 +1,9 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'dart:convert';
 
 void main() {
   runApp(MyApp());
@@ -122,24 +125,31 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class GeneratorFilm extends StatelessWidget {
+  
   //Récupérer la liste des films
   //A FAIRE, ce qu'il y a en dessous c'est des tests,
-  final List<String> likedMovies = [
-    "Film 1",
-    "Film 2",
-    "Film 3",
-  ];
+  List _films = [];
+
+  Future<void> readJson() async {
+    final String response = await rootBundle.loadString('films.json');
+    final films = await json.decode(response);
+
+    _films = films;
+
+    print(_films);
+  }
 
   @override
   Widget build(BuildContext context) {
+    readJson();
     var appState = context.watch<MyAppState>();
 
-    if (likedMovies.isEmpty) {
+    if (_films.isEmpty) {
       return Center(child: Text("No film yet"),
       );
     }
 
-    var pair = likedMovies;
+    var pair = _films;
 
     IconData icon;
     if (appState.favorites.contains(pair)) {
@@ -153,9 +163,9 @@ class GeneratorFilm extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(20),
           child : Text('You have '
-                '${likedMovies.length} films:'),
+                '${_films.length} films:'),
         ),
-        for (var pair in likedMovies)
+        for (var pair in _films)
           ListTile(
             leading: Icon(Icons.fiber_manual_record_outlined),
             title: Row(

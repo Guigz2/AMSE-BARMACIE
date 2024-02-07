@@ -163,6 +163,12 @@ class GeneratorFilm extends StatelessWidget {
                 Expanded(
                   child: Text(pair), 
                 ),
+                Expanded(
+                  child: Text('réalisateur : ${pair}'), 
+                ),
+                Expanded(
+                  child: Text('date : ${pair}'), 
+                ),
                 ElevatedButton.icon(
                   onPressed: () {
                     appState.toggleFavorite();

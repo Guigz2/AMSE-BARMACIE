@@ -1,0 +1,29 @@
+{
+    "films": [
+      {
+        "titre": "Inception",
+        "realisateur": "Christopher Nolan",
+        "annee": 2010,
+        "affiche": "assets/inception_affiche.jpg"
+      },
+      {
+        "titre": "La La Land",
+        "realisateur": "Damien Chazelle",
+        "annee": 2016,
+        "affiche": "assets/la_la_land_affiche.jpg"
+      },
+      {
+        "titre": "The Shawshank Redemption",
+        "realisateur": "Frank Darabont",
+        "annee": 1994,
+        "affiche": "assets/shawshank_redemption_affiche.jpg"
+      },
+      {
+        "titre": "Pulp Fiction",
+        "realisateur": "Quentin Tarantino",
+        "annee": 1994,
+        "affiche": "assets/pulp_fiction_affiche.jpg"
+      }
+    ]
+  }
+  

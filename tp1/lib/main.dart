@@ -86,7 +86,7 @@ class MyAppState extends ChangeNotifier {
       final String response = await rootBundle.loadString('films.json');
       final jsonData = json.decode(response);
       // Récupérer la liste de films à partir du Map
-      List<dynamic> bdsData = jsonData['BDs'];
+      List<dynamic> bdsData = jsonData['bds'];
       // Créer une liste d'objets Film à partir de la liste de données
       bds = bdsData.map((bdsData) => BDs.fromJson(bdsData)).toList();
       // Utiliser setState pour mettre à jour l'état du widget

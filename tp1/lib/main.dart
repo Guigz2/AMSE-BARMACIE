@@ -120,8 +120,9 @@ class Media {
   final String auteur;
   final int annee;
   final String img;
+  final String description;
 
-  Media({required this.id, required this.titre, required this.auteur, required this.annee, required this.img});
+  Media({required this.id, required this.titre, required this.auteur, required this.annee, required this.img, required this.description});
 
   factory Media.fromJson(Map<String, dynamic> json) {
     return Media(
@@ -130,6 +131,7 @@ class Media {
       auteur: json['auteur'] as String? ?? 'null', // Utilisation de 'as String?' pour indiquer que la valeur peut être null
       annee: json['annee'] as int? ?? 0, // Utilisation de 'as int?' pour indiquer que la valeur peut être null
       img: json['img'] as String? ?? 'null',
+      description: json['description'] as String? ?? 'null',
     );
   }
 
@@ -461,7 +463,7 @@ class Information extends StatelessWidget {
                   Text("Auteur: ${data.auteur}"),
                   Text("Année: ${data.annee}"),
                   SizedBox(height: 8.0),
-                  Text("Description"),
+                  Text("${data.description}"),
                 ],
               ),
             ),

@@ -1,6 +1,5 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
@@ -36,16 +35,35 @@ class MyAppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  var favorites = <WordPair>[];
+  var favorites = <Film>[];
 
-  void toggleFavorite(){
-    if (favorites.contains(current)){
-      favorites.remove(current);
+  void toggleFavorite(Film currents){
+    if (favorites.contains(currents)){
+      favorites.remove(currents);
     } else {
-      favorites.add(current);
+      favorites.add(currents);
     }
     notifyListeners();
   }
+
+  late List<Film> films;
+
+  Future<void> readJson() async {
+    try {
+      final String response = await rootBundle.loadString('films.json');
+      final jsonData = json.decode(response);
+      // Récupérer la liste de films à partir du Map
+      List<dynamic> filmsData = jsonData['films'];
+      // Créer une liste d'objets Film à partir de la liste de données
+      films = filmsData.map((filmData) => Film.fromJson(filmData)).toList();
+      // Utiliser setState pour mettre à jour l'état du widget
+    }
+    catch (e) {
+      print("Erreur lors de la lecture du fichier JSON : $e");
+    }
+    notifyListeners();
+  }
+
 }
 
 class MyHomePage extends StatefulWidget {
@@ -53,11 +71,79 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+class Film {
+  final int id;
+  final String titre;
+  final String realisateur;
+  final int annee;
+
+  Film({required this.id, required this.titre, required this.realisateur, required this.annee});
+
+  factory Film.fromJson(Map<String, dynamic> json) {
+    return Film(
+      id: json['id'] as int? ?? 0, // Utilisation de 'as int?' pour indiquer que la valeur peut être null
+      titre: json['titre'] as String? ?? 'null', // Utilisation de 'as String?' pour indiquer que la valeur peut être null
+      realisateur: json['realisateur'] as String? ?? 'null', // Utilisation de 'as String?' pour indiquer que la valeur peut être null
+      annee: json['annee'] as int? ?? 0, // Utilisation de 'as int?' pour indiquer que la valeur peut être null
+    );
+  }
+}
+
+class Series {
+  final int id;
+  final String titre;
+  final String realisateur;
+  final int annee;
+
+  Series({required this.id, required this.titre, required this.realisateur, required this.annee});
+
+  factory Series.fromJson(Map<String, dynamic> json) {
+    return Series(
+      id: json['id'] as int? ?? 0, // Utilisation de 'as int?' pour indiquer que la valeur peut être null
+      titre: json['titre'] as String? ?? 'null', // Utilisation de 'as String?' pour indiquer que la valeur peut être null
+      realisateur: json['realisateur'] as String? ?? 'null', // Utilisation de 'as String?' pour indiquer que la valeur peut être null
+      annee: json['annee'] as int? ?? 0, // Utilisation de 'as int?' pour indiquer que la valeur peut être null
+    );
+  }
+}
+
+class Sports {
+  final int id;
+  final String titre;
+  final String realisateur;
+  final int annee;
+
+  Sports({required this.id, required this.titre, required this.realisateur, required this.annee});
+
+  factory Sports.fromJson(Map<String, dynamic> json) {
+    return Sports(
+      id: json['id'] as int? ?? 0, // Utilisation de 'as int?' pour indiquer que la valeur peut être null
+      titre: json['titre'] as String? ?? 'null', // Utilisation de 'as String?' pour indiquer que la valeur peut être null
+      realisateur: json['realisateur'] as String? ?? 'null', // Utilisation de 'as String?' pour indiquer que la valeur peut être null
+      annee: json['annee'] as int? ?? 0, // Utilisation de 'as int?' pour indiquer que la valeur peut être null
+    );
+  }
+}
+
 class _MyHomePageState extends State<MyHomePage> {
   
   var selectedIndex = 0;
-  
+
   @override
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //     body: ListView(
+  //       children: [
+  //         for(var film in films)
+  //           ListTile( 
+  //             title: Text('ID: ${film.id}: Nom: ${film.titre}'),
+  //             subtitle: Text('Réalisateur: ${film.realisateur}: Année: ${film.annee}'),
+  //           ),
+  //       ],
+  //     )
+  //   );
+  // }
+
   Widget build(BuildContext context) {
     Widget page;
     switch (selectedIndex) {
@@ -75,7 +161,7 @@ class _MyHomePageState extends State<MyHomePage> {
         break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
-}
+    }
     return LayoutBuilder(
       builder: (context,contraints) {
         return Scaffold(
@@ -125,34 +211,20 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class GeneratorFilm extends StatelessWidget {
-  
-  //Récupérer la liste des films
-  //A FAIRE, ce qu'il y a en dessous c'est des tests,
-  List _films = [];
-
-  Future<void> readJson() async {
-    final String response = await rootBundle.loadString('films.json');
-    final films = await json.decode(response);
-
-    _films = films;
-
-    print(_films);
-  }
 
   @override
   Widget build(BuildContext context) {
-    readJson();
     var appState = context.watch<MyAppState>();
+    appState.readJson();
+    List<Film> films = appState.films;
 
-    if (_films.isEmpty) {
+    if (films.isEmpty) {
       return Center(child: Text("No film yet"),
       );
     }
 
-    var pair = _films;
-
     IconData icon;
-    if (appState.favorites.contains(pair)) {
+    if (appState.favorites.contains(films)) {
       icon = Icons.favorite;
     } else {
       icon = Icons.favorite_border;
@@ -163,25 +235,25 @@ class GeneratorFilm extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(20),
           child : Text('You have '
-                '${_films.length} films:'),
+                '${films.length} films:'),
         ),
-        for (var pair in _films)
+        for (var film in films)
           ListTile(
             leading: Icon(Icons.fiber_manual_record_outlined),
             title: Row(
               children: [
                 Expanded(
-                  child: Text(pair), 
+                  child: Text(film.titre), 
                 ),
                 Expanded(
-                  child: Text('réalisateur : ${pair}'), 
+                  child: Text('réalisateur : ${film.realisateur}'), 
                 ),
                 Expanded(
-                  child: Text('date : ${pair}'), 
+                  child: Text('date : ${film.annee}'), 
                 ),
                 ElevatedButton.icon(
                   onPressed: () {
-                    appState.toggleFavorite();
+                    appState.toggleFavorite(film);
                   },
                   icon: Icon(icon),
                   label: Text('Like'),
@@ -204,7 +276,6 @@ class FavoritesPage extends StatelessWidget {
       return Center(child: Text("No favorites yet"),
       );
     }
-
     return ListView(
       children: [
         Padding(
@@ -215,7 +286,8 @@ class FavoritesPage extends StatelessWidget {
         for (var pair in appState.favorites)
           ListTile(
             leading: Icon(Icons.favorite),
-            title: Text(pair.asLowerCase),
+            title: Text('ID: ${pair.id}: Nom: ${pair.titre}'),
+            subtitle: Text('Réalisateur: ${pair.realisateur}: Année: ${pair.annee}'),
           ),
       ],
     );

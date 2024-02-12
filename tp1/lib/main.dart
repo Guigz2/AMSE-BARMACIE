@@ -150,78 +150,6 @@ class Media {
   }
 }
 
-// class Series {
-//   final int id;
-//   final String titre;
-//   final String realisateur;
-//   final int annee;
-//   final String img;
-
-//   Series({required this.id, required this.titre, required this.realisateur, required this.annee, required this.img});
-
-//   factory Series.fromJson(Map<String, dynamic> json) {
-//     return Series(
-//       id: json['id'] as int? ?? 0, // Utilisation de 'as int?' pour indiquer que la valeur peut être null
-//       titre: json['titre'] as String? ?? 'null', // Utilisation de 'as String?' pour indiquer que la valeur peut être null
-//       realisateur: json['realisateur'] as String? ?? 'null', // Utilisation de 'as String?' pour indiquer que la valeur peut être null
-//       annee: json['annee'] as int? ?? 0, // Utilisation de 'as int?' pour indiquer que la valeur peut être null
-//       img: json['img'] as String? ?? 'null',
-//     );
-//   }
-
-//   @override
-//   bool operator ==(Object other) {
-//     if (identical(this, other)) return true;
-
-//     return other is Film &&
-//         other.id == id &&
-//         other.titre == titre &&
-//         other.realisateur == realisateur &&
-//         other.annee == annee;
-//   }
-
-//   @override
-//   int get hashCode {
-//     return id.hashCode ^ titre.hashCode ^ realisateur.hashCode ^ annee.hashCode;
-//   }
-// }
-
-// class BDs {
-//   final int id;
-//   final String titre;
-//   final String ecrivain;
-//   final int annee;
-//   final String img;
-
-//   BDs({required this.id, required this.titre, required this.ecrivain, required this.annee, required this.img});
-
-//   factory BDs.fromJson(Map<String, dynamic> json) {
-//     return BDs(
-//       id: json['id'] as int? ?? 0, // Utilisation de 'as int?' pour indiquer que la valeur peut être null
-//       titre: json['titre'] as String? ?? 'null', // Utilisation de 'as String?' pour indiquer que la valeur peut être null
-//       ecrivain: json['ecrivain'] as String? ?? 'null', // Utilisation de 'as String?' pour indiquer que la valeur peut être null
-//       annee: json['annee'] as int? ?? 0, // Utilisation de 'as int?' pour indiquer que la valeur peut être null
-//       img: json['img'] as String? ?? 'null',
-//     );
-//   }
-
-//   @override
-//   bool operator ==(Object other) {
-//     if (identical(this, other)) return true;
-
-//     return other is BDs &&
-//         other.id == id &&
-//         other.titre == titre &&
-//         other.ecrivain == ecrivain &&
-//         other.annee == annee;
-//   }
-
-//   @override
-//   int get hashCode {
-//     return id.hashCode ^ titre.hashCode ^ ecrivain.hashCode ^ annee.hashCode;
-//   }
-// }
-
 class _MyHomePageState extends State<MyHomePage> {
   
   var selectedIndex = 0;
@@ -317,7 +245,19 @@ class Liste_Film extends StatelessWidget {
       itemBuilder: (context, index) {
         var film = films[index];
 
-        return Card(
+        return 
+        ElevatedButton(
+          onPressed: () {
+            // Naviguer vers la page de destination en passant des données
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Information(data: film),
+              ),
+            );
+          }, 
+          child: 
+          Card(
           child: IntrinsicHeight(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -342,6 +282,7 @@ class Liste_Film extends StatelessWidget {
               ],
             ),
           ),
+        ),
         );
       },
     );
@@ -480,6 +421,53 @@ class FavoritesPage extends StatelessWidget {
             trailing: Image.asset("${pair.img}"),
           ),
       ],
+    );
+  }
+}
+
+class Information extends StatelessWidget {
+  
+  
+  final Media data;
+
+  Information({required this.data});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Image à gauche
+          Container(
+            width: 120.0, // Ajustez la largeur de l'image selon vos besoins
+            height: 160.0, // Ajustez la hauteur de l'image selon vos besoins
+            child: Image.asset(
+              data.img,
+              fit: BoxFit.cover,
+            ),
+          ),
+          // Informations à droite
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    data.titre,
+                    style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                  ),
+                  Text("Auteur: ${data.auteur}"),
+                  Text("Année: ${data.annee}"),
+                  SizedBox(height: 8.0),
+                  Text("Description"),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -85,11 +85,8 @@ class MyAppState extends ChangeNotifier {
     try {
       final String response = await rootBundle.loadString('films.json');
       final jsonData = json.decode(response);
-      // Récupérer la liste de films à partir du Map
       List<dynamic> bdsData = jsonData['bds'];
-      // Créer une liste d'objets Film à partir de la liste de données
       bds = bdsData.map((bdsData) => Media.fromJson(bdsData)).toList();
-      // Utiliser setState pour mettre à jour l'état du widget
     }
     catch (e) {
       print("Erreur lors de la lecture du fichier JSON : $e");
@@ -129,9 +126,9 @@ class Media {
     return Media(
       id: json['id'] as int? ?? 0, // Utilisation de 'as int?' pour indiquer que la valeur peut être null
       titre: json['titre'] as String? ?? 'null', // Utilisation de 'as String?' pour indiquer que la valeur peut être null
-      auteur: json['auteur'] as String? ?? 'null', // Utilisation de 'as String?' pour indiquer que la valeur peut être null
-      annee: json['annee'] as int? ?? 0, // Utilisation de 'as int?' pour indiquer que la valeur peut être null
-      img: json['img'] as String? ?? 'null',
+      auteur: json['auteur'] as String? ?? 'null', 
+      annee: json['annee'] as int? ?? 0, 
+      img: json['img'] as String? ?? 'null', 
       description: json['description'] as String? ?? 'null',
       type: json['type'] as String? ?? 'null',
     );
@@ -241,7 +238,7 @@ class Liste_Film extends StatelessWidget {
 
   return GridView.builder(
       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: 300.0, // Taille maximale pour chaque élément (ajustez selon vos besoins)
+        maxCrossAxisExtent: 300.0, // Taille maximale pour chaque élément 
         crossAxisSpacing: 8.0, // Espacement horizontal entre les colonnes
         mainAxisSpacing: 8.0, // Espacement vertical entre les lignes
       ),
@@ -308,7 +305,7 @@ class Liste_Series extends StatelessWidget {
 
   return GridView.builder(
       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: 300.0, // Taille maximale pour chaque élément (ajustez selon vos besoins)
+        maxCrossAxisExtent: 300.0, // Taille maximale pour chaque élément 
         crossAxisSpacing: 8.0, // Espacement horizontal entre les colonnes
         mainAxisSpacing: 8.0, // Espacement vertical entre les lignes
       ),
@@ -375,7 +372,7 @@ class Liste_BDs extends StatelessWidget {
 
   return GridView.builder(
       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: 300.0, // Taille maximale pour chaque élément (ajustez selon vos besoins)
+        maxCrossAxisExtent: 300.0, // Taille maximale pour chaque élément 
         crossAxisSpacing: 8.0, // Espacement horizontal entre les colonnes
         mainAxisSpacing: 8.0, // Espacement vertical entre les lignes
       ),
@@ -487,8 +484,8 @@ class Information extends StatelessWidget {
           children: [
             // Image à gauche
             Container(
-              width: 120.0, // Ajustez la largeur de l'image selon vos besoins
-              height: 160.0, // Ajustez la hauteur de l'image selon vos besoins
+              width: 120.0, // Ajustez la largeur de l'image 
+              height: 160.0, // Ajustez la hauteur de l'image 
               child: Image.asset(
                 data.img,
                 fit: BoxFit.cover,

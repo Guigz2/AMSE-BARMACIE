@@ -41,7 +41,7 @@ class MyAppState extends ChangeNotifier {
   }
 
   // late List<Film> films;
-  var films  = List<Film>.empty();
+  var films  = List<Media>.empty();
 
   Future<void> readJson_films() async {
     try {
@@ -50,7 +50,7 @@ class MyAppState extends ChangeNotifier {
       // Récupérer la liste de films à partir du Map
       List<dynamic> filmsData = jsonData['films'];
       // Créer une liste d'objets Film à partir de la liste de données
-      films = filmsData.map((filmData) => Film.fromJson(filmData)).toList();
+      films = filmsData.map((filmData) => Media.fromJson(filmData)).toList();
       // Utiliser setState pour mettre à jour l'état du widget
     }
     catch (e) {
@@ -60,7 +60,7 @@ class MyAppState extends ChangeNotifier {
   }
 
   // late List<Series> series;
-  var series  = List<Series>.empty();
+  var series  = List<Media>.empty();
 
   Future<void> readJson_series() async {
     try {
@@ -69,7 +69,7 @@ class MyAppState extends ChangeNotifier {
       // Récupérer la liste de films à partir du Map
       List<dynamic> seriesData = jsonData['series'];
       // Créer une liste d'objets Film à partir de la liste de données
-      series = seriesData.map((seriesData) => Series.fromJson(seriesData)).toList();
+      series = seriesData.map((seriesData) => Media.fromJson(seriesData)).toList();
       // Utiliser setState pour mettre à jour l'état du widget
     }
     catch (e) {
@@ -79,16 +79,16 @@ class MyAppState extends ChangeNotifier {
   }
 
   // late List<BDs> bds;
-  var bds  = List<BDs>.empty();
+  var bds  = List<Media>.empty();
 
   Future<void> readJson_bds() async {
     try {
       final String response = await rootBundle.loadString('films.json');
       final jsonData = json.decode(response);
       // Récupérer la liste de films à partir du Map
-      List<dynamic> bdsData = jsonData['BDs'];
+      List<dynamic> bdsData = jsonData['bds'];
       // Créer une liste d'objets Film à partir de la liste de données
-      bds = bdsData.map((bdsData) => BDs.fromJson(bdsData)).toList();
+      bds = bdsData.map((bdsData) => Media.fromJson(bdsData)).toList();
       // Utiliser setState pour mettre à jour l'état du widget
     }
     catch (e) {
@@ -97,7 +97,7 @@ class MyAppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  IconData favorite_icon(var media){
+  IconData favorite_icon(Media media){
     IconData icon;
     if (favorites.contains(media)) {
       icon = Icons.favorite;
@@ -114,20 +114,20 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class Film {
+class Media {
   final int id;
   final String titre;
-  final String realisateur;
+  final String auteur;
   final int annee;
   final String img;
 
-  Film({required this.id, required this.titre, required this.realisateur, required this.annee, required this.img});
+  Media({required this.id, required this.titre, required this.auteur, required this.annee, required this.img});
 
-  factory Film.fromJson(Map<String, dynamic> json) {
-    return Film(
+  factory Media.fromJson(Map<String, dynamic> json) {
+    return Media(
       id: json['id'] as int? ?? 0, // Utilisation de 'as int?' pour indiquer que la valeur peut être null
       titre: json['titre'] as String? ?? 'null', // Utilisation de 'as String?' pour indiquer que la valeur peut être null
-      realisateur: json['realisateur'] as String? ?? 'null', // Utilisation de 'as String?' pour indiquer que la valeur peut être null
+      auteur: json['auteur'] as String? ?? 'null', // Utilisation de 'as String?' pour indiquer que la valeur peut être null
       annee: json['annee'] as int? ?? 0, // Utilisation de 'as int?' pour indiquer que la valeur peut être null
       img: json['img'] as String? ?? 'null',
     );
@@ -137,90 +137,90 @@ class Film {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is Series &&
+    return other is Media &&
         other.id == id &&
         other.titre == titre &&
-        other.realisateur == realisateur &&
+        other.auteur == auteur &&
         other.annee == annee;
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^ titre.hashCode ^ realisateur.hashCode ^ annee.hashCode;
+    return id.hashCode ^ titre.hashCode ^ auteur.hashCode ^ annee.hashCode;
   }
 }
 
-class Series {
-  final int id;
-  final String titre;
-  final String realisateur;
-  final int annee;
-  final String img;
+// class Series {
+//   final int id;
+//   final String titre;
+//   final String realisateur;
+//   final int annee;
+//   final String img;
 
-  Series({required this.id, required this.titre, required this.realisateur, required this.annee, required this.img});
+//   Series({required this.id, required this.titre, required this.realisateur, required this.annee, required this.img});
 
-  factory Series.fromJson(Map<String, dynamic> json) {
-    return Series(
-      id: json['id'] as int? ?? 0, // Utilisation de 'as int?' pour indiquer que la valeur peut être null
-      titre: json['titre'] as String? ?? 'null', // Utilisation de 'as String?' pour indiquer que la valeur peut être null
-      realisateur: json['realisateur'] as String? ?? 'null', // Utilisation de 'as String?' pour indiquer que la valeur peut être null
-      annee: json['annee'] as int? ?? 0, // Utilisation de 'as int?' pour indiquer que la valeur peut être null
-      img: json['img'] as String? ?? 'null',
-    );
-  }
+//   factory Series.fromJson(Map<String, dynamic> json) {
+//     return Series(
+//       id: json['id'] as int? ?? 0, // Utilisation de 'as int?' pour indiquer que la valeur peut être null
+//       titre: json['titre'] as String? ?? 'null', // Utilisation de 'as String?' pour indiquer que la valeur peut être null
+//       realisateur: json['realisateur'] as String? ?? 'null', // Utilisation de 'as String?' pour indiquer que la valeur peut être null
+//       annee: json['annee'] as int? ?? 0, // Utilisation de 'as int?' pour indiquer que la valeur peut être null
+//       img: json['img'] as String? ?? 'null',
+//     );
+//   }
 
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
+//   @override
+//   bool operator ==(Object other) {
+//     if (identical(this, other)) return true;
 
-    return other is Film &&
-        other.id == id &&
-        other.titre == titre &&
-        other.realisateur == realisateur &&
-        other.annee == annee;
-  }
+//     return other is Film &&
+//         other.id == id &&
+//         other.titre == titre &&
+//         other.realisateur == realisateur &&
+//         other.annee == annee;
+//   }
 
-  @override
-  int get hashCode {
-    return id.hashCode ^ titre.hashCode ^ realisateur.hashCode ^ annee.hashCode;
-  }
-}
+//   @override
+//   int get hashCode {
+//     return id.hashCode ^ titre.hashCode ^ realisateur.hashCode ^ annee.hashCode;
+//   }
+// }
 
-class BDs {
-  final int id;
-  final String titre;
-  final String ecrivain;
-  final int annee;
-  final String img;
+// class BDs {
+//   final int id;
+//   final String titre;
+//   final String ecrivain;
+//   final int annee;
+//   final String img;
 
-  BDs({required this.id, required this.titre, required this.ecrivain, required this.annee, required this.img});
+//   BDs({required this.id, required this.titre, required this.ecrivain, required this.annee, required this.img});
 
-  factory BDs.fromJson(Map<String, dynamic> json) {
-    return BDs(
-      id: json['id'] as int? ?? 0, // Utilisation de 'as int?' pour indiquer que la valeur peut être null
-      titre: json['titre'] as String? ?? 'null', // Utilisation de 'as String?' pour indiquer que la valeur peut être null
-      ecrivain: json['realisateur'] as String? ?? 'null', // Utilisation de 'as String?' pour indiquer que la valeur peut être null
-      annee: json['annee'] as int? ?? 0, // Utilisation de 'as int?' pour indiquer que la valeur peut être null
-      img: json['img'] as String? ?? 'null',
-    );
-  }
+//   factory BDs.fromJson(Map<String, dynamic> json) {
+//     return BDs(
+//       id: json['id'] as int? ?? 0, // Utilisation de 'as int?' pour indiquer que la valeur peut être null
+//       titre: json['titre'] as String? ?? 'null', // Utilisation de 'as String?' pour indiquer que la valeur peut être null
+//       ecrivain: json['ecrivain'] as String? ?? 'null', // Utilisation de 'as String?' pour indiquer que la valeur peut être null
+//       annee: json['annee'] as int? ?? 0, // Utilisation de 'as int?' pour indiquer que la valeur peut être null
+//       img: json['img'] as String? ?? 'null',
+//     );
+//   }
 
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
+//   @override
+//   bool operator ==(Object other) {
+//     if (identical(this, other)) return true;
 
-    return other is BDs &&
-        other.id == id &&
-        other.titre == titre &&
-        other.ecrivain == ecrivain &&
-        other.annee == annee;
-  }
+//     return other is BDs &&
+//         other.id == id &&
+//         other.titre == titre &&
+//         other.ecrivain == ecrivain &&
+//         other.annee == annee;
+//   }
 
-  @override
-  int get hashCode {
-    return id.hashCode ^ titre.hashCode ^ ecrivain.hashCode ^ annee.hashCode;
-  }
-}
+//   @override
+//   int get hashCode {
+//     return id.hashCode ^ titre.hashCode ^ ecrivain.hashCode ^ annee.hashCode;
+//   }
+// }
 
 class _MyHomePageState extends State<MyHomePage> {
   
@@ -300,7 +300,7 @@ class Liste_Film extends StatelessWidget {
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
     appState.readJson_films();
-    List<Film> films = appState.films;
+    List<Media> films = appState.films;
 
     if (films.isEmpty) {
       return Center(child: Text("No film yet"),
@@ -354,7 +354,7 @@ class Liste_Series extends StatelessWidget {
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
     appState.readJson_series();
-    List<Series> series = appState.series;
+    List<Media> series = appState.series;
 
     if (series.isEmpty) {
       return Center(child: Text("No series yet"),
@@ -408,7 +408,7 @@ class Liste_BDs extends StatelessWidget {
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
     appState.readJson_bds();
-    List<BDs> bds = appState.bds;
+    List<Media> bds = appState.bds;
 
     if (bds.isEmpty) {
       return Center(child: Text("No series yet"),
@@ -476,7 +476,7 @@ class FavoritesPage extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.favorite),
             title: Text('Nom: ${pair.titre}'),
-            subtitle: Text('Réalisateur: ${pair.realisateur} | Année: ${pair.annee} | ${pair.runtimeType}'),
+            subtitle: Text('Auteur: ${pair.auteur} | Année: ${pair.annee} | ${pair.runtimeType}'),
             trailing: Image.asset("${pair.img}"),
           ),
       ],

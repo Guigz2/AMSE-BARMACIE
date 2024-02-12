@@ -94,6 +94,22 @@ class Film {
       img: json['img'] as String? ?? 'null',
     );
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is Film &&
+        other.id == id &&
+        other.titre == titre &&
+        other.realisateur == realisateur &&
+        other.annee == annee;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^ titre.hashCode ^ realisateur.hashCode ^ annee.hashCode;
+  }
 }
 
 class Series {

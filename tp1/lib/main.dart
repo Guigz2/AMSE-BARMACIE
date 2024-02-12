@@ -485,7 +485,6 @@ class Information extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Image à gauche
             Container(
               width: 120.0, // Ajustez la largeur de l'image selon vos besoins
               height: 160.0, // Ajustez la hauteur de l'image selon vos besoins

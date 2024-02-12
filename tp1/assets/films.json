@@ -1,38 +1,278 @@
 {
   "films": [
-    {"id": 1,"titre": "Inception","auteur": "Christopher Nolan","annee":2010,"img":"inception_affiche.jpg"},
-    {"id": 2,"titre": "La La Land","auteur": "Damien Chazelle","annee":2016,"img":"la_la_land_affiche.jpg"},
-    {"id": 3,"titre": "Pulp Fiction","auteur": "Quentin Tarantino","annee":1994,"img":"pulp_fiction_affiche.jpg"},
-    {"id": 4,"titre": "Shawshank Redemption","auteur": "Frank Darabont","annee":1994,"img":"shawshank_redemption_affiche.jpg"},
-    {"id": 5,"titre": "Forrest Gump","auteur": "Robert Zemeckis","annee":1994,"img":"forrest_gump_affiche.jpg"},
-    {"id": 6,"titre": "The Godfather","auteur": "Francis Ford Coppola","annee":1972,"img":"the_godfather_affiche.jpg"},
-    {"id": 7,"titre": "Titanic","auteur": "James Cameron","annee":1997,"img":"titanic_affiche.jpg"},
-    {"id": 8,"titre": "The Dark Knight","auteur": "Christopher Nolan","annee":2008,"img":"the_dark_knight_affiche.jpg"},
-    {"id": 9,"titre": "Schindler's List","auteur": "Steven Spielberg","annee":1993,"img":"schindlers_list_affiche.jpg"},
-    {"id": 10,"titre": "The Matrix","auteur": "Lana et Lily Wachowski","annee":1999,"img":"the_matrix_affiche.jpg"}
+    {
+      "id": 1,
+      "type": "Film",
+      "titre": "Inception",
+      "auteur": "Christopher Nolan",
+      "annee": 2010,
+      "img": "inception_affiche.jpg",
+      "description": "Inception est un film de science-fiction réalisé par Christopher Nolan. L'histoire suit Dom Cobb, un voleur qualifié qui pénètre dans les rêves de ses cibles pour voler leurs secrets les plus précieux. Cobb se voit offrir une mission impossible : implanter une idée dans l'esprit d'une personne. Le film explore les thèmes de la réalité, de l'inconscient et de la manipulation mentale."
+    },
+    {
+      "id": 2,
+      "type": "Film",
+      "titre": "La La Land",
+      "auteur": "Damien Chazelle",
+      "annee": 2016,
+      "img": "la_la_land_affiche.jpg",
+      "description": "La La Land, réalisé par Damien Chazelle, est une comédie musicale romantique qui raconte l'histoire de Mia, une aspirante actrice, et Sebastian, un pianiste de jazz passionné. Le film explore les thèmes de l'amour, de la poursuite des rêves et des sacrifices que l'on doit parfois faire pour réussir dans l'industrie du divertissement."
+    },
+    {
+      "id": 3,
+      "type": "Film",
+      "titre": "Pulp Fiction",
+      "auteur": "Quentin Tarantino",
+      "annee": 1994,
+      "img": "pulp_fiction_affiche.jpg",
+      "description": "Pulp Fiction, réalisé par Quentin Tarantino, est un film culte qui entrelace plusieurs histoires de gangsters à Los Angeles. Avec son style distinctif et ses dialogues percutants, le film explore la violence, la moralité et l'absurdité de la vie quotidienne. Pulp Fiction a été acclamé pour son scénario non linéaire et son casting mémorable."
+    },
+    {
+      "id": 4,
+      "type": "Film",
+      "titre": "Shawshank Redemption",
+      "auteur": "Frank Darabont",
+      "annee": 1994,
+      "img": "shawshank_redemption_affiche.jpg",
+      "description": "The Shawshank Redemption, réalisé par Frank Darabont, est basé sur la nouvelle de Stephen King. L'histoire se déroule dans la prison de Shawshank et suit Andy Dufresne, un banquier condamné à tort pour le meurtre de sa femme. Le film explore la résilience, l'amitié et la rédemption dans un environnement carcéral difficile."
+    },
+    {
+      "id": 5,
+      "type": "Film",
+      "titre": "Forrest Gump",
+      "auteur": "Robert Zemeckis",
+      "annee": 1994,
+      "img": "forrest_gump_affiche.jpg",
+      "description": "Forrest Gump, réalisé par Robert Zemeckis, est une épopée comique-dramatique qui suit la vie de Forrest Gump, un homme simple d'esprit qui se retrouve impliqué dans des événements clés de l'histoire américaine. Le film explore les thèmes de l'amour, de la chance et du destin, et a remporté plusieurs Oscars, dont celui du meilleur film."
+    },
+    {
+      "id": 6,
+      "type": "Film",
+      "titre": "The Godfather",
+      "auteur": "Francis Ford Coppola",
+      "annee": 1972,
+      "img": "the_godfather_affiche.jpg",
+      "description": "The Godfather, réalisé par Francis Ford Coppola, est un film de mafia emblématique basé sur le roman de Mario Puzo. L'histoire suit la famille Corleone et son patriarche, Vito Corleone. Le film explore le pouvoir, la loyauté familiale et les conséquences de la vie dans le crime organisé. The Godfather est considéré comme l'un des meilleurs films de tous les temps."
+    },
+    {
+      "id": 7,
+      "type": "Film",
+      "titre": "Titanic",
+      "auteur": "James Cameron",
+      "annee": 1997,
+      "img": "titanic_affiche.jpg",
+      "description": "Titanic, réalisé par James Cameron, est une romance épique se déroulant à bord du célèbre navire pendant son voyage inaugural. L'histoire suit Jack Dawson, un artiste sans le sou, et Rose DeWitt Bukater, une jeune femme de la haute société. Le film explore l'amour interdit, le sacrifice et la tragédie du naufrage du Titanic."
+    },
+    {
+      "id": 8,
+      "type": "Film",
+      "titre": "The Dark Knight",
+      "auteur": "Christopher Nolan",
+      "annee": 2008,
+      "img": "the_dark_knight_affiche.jpg",
+      "description": "The Dark Knight, réalisé par Christopher Nolan, est le deuxième volet de la trilogie Batman. L'histoire suit Batman alors qu'il fait face au Joker, un criminel chaotique qui menace Gotham City. Le film explore la dualité morale, la justice et les choix difficiles auxquels un héros est confronté. Heath Ledger a remporté un Oscar posthume pour sa performance mémorable en tant que Joker."
+    },
+    {
+      "id": 9,
+      "type": "Film",
+      "titre": "Schindler's List",
+      "auteur": "Steven Spielberg",
+      "annee": 1993,
+      "img": "schindlers_list_affiche.jpg",
+      "description": "Schindler's List, réalisé par Steven Spielberg, est basé sur l'histoire vraie d'Oskar Schindler, un homme d'affaires allemand qui sauva la vie de plus de mille Juifs pendant l'Holocauste. Le film explore la compassion, le sacrifice et la lutte contre l'injustice. Il a remporté plusieurs Oscars, dont celui du meilleur film."
+    },
+    {
+      "id": 10,
+      "type": "Film",
+      "titre": "The Matrix",
+      "auteur": "Lana et Lily Wachowski",
+      "annee": 1999,
+      "img": "the_matrix_affiche.jpg",
+      "description": "The Matrix, réalisé par les sœurs Wachowski, est un film de science-fiction révolutionnaire qui explore la réalité virtuelle et la lutte pour la liberté. L'histoire suit Neo, un hacker, alors qu'il découvre la vérité sur le monde contrôlé par des machines. Le film est salué pour ses effets spéciaux novateurs et son exploration philosophique de la réalité."
+    }
   ],
   "series": [
-    {"id": 1, "titre": "Breaking Bad", "auteur": "Vince Gilligan", "annee": 2008, "img": "breaking_bad_affiche.jpg"},
-    {"id": 2, "titre": "Game of Thrones", "auteur": "David Benioff, D. B. Weiss", "annee": 2011, "img": "game_of_thrones_affiche.jpg"},
-    {"id": 3, "titre": "Stranger Things", "auteur": "The Duffer Brothers", "annee": 2016, "img": "stranger_things_affiche.jpg"},
-    {"id": 4, "titre": "The Sopranos", "auteur": "David Chase", "annee": 1999, "img": "the_sopranos_affiche.jpg"},
-    {"id": 5, "titre": "Better Call Saul", "auteur": "Vince Gilligan, Peter Gould", "annee": 2015, "img": "better_call_saul_affiche.jpg"},
-    {"id": 6, "titre": "The Wire", "auteur": "David Simon", "annee": 2002, "img": "the_wire_affiche.jpg"},
-    {"id": 7, "titre": "Sherlock", "auteur": "Mark Gatiss, Steven Moffat", "annee": 2010, "img": "sherlock_affiche.jpg"},
-    {"id": 8, "titre": "Westworld", "auteur": "Jonathan Nolan, Lisa Joy", "annee": 2016, "img": "westworld_affiche.jpg"},
-    {"id": 9, "titre": "Mindhunter", "auteur": "Joe Penhall", "annee": 2017, "img": "mindhunter_affiche.jpg"},
-    {"id": 10, "titre": "The Crown", "auteur": "Peter Morgan", "annee": 2016, "img": "the_crown_affiche.jpg"}    
+    {
+      "id": 1,
+      "type": "Série",
+      "titre": "Breaking Bad",
+      "auteur": "Vince Gilligan",
+      "annee": 2008,
+      "img": "breaking_bad_affiche.jpg",
+      "description": "Breaking Bad, créée par Vince Gilligan, suit l'histoire de Walter White, un professeur de chimie qui se lance dans la fabrication de méthamphétamine après avoir été diagnostiqué d'un cancer. La série explore la transformation de Walter de père de famille en criminel redoutable, ainsi que les conséquences de ses choix sur sa vie et celle de son entourage."
+    },
+    {
+      "id": 2,
+      "type": "Série",
+      "titre": "Game of Thrones",
+      "auteur": "David Benioff, D. B. Weiss",
+      "annee": 2011,
+      "img": "game_of_thrones_affiche.jpg",
+      "description": "Game of Thrones, créée par David Benioff et D. B. Weiss, est une adaptation épique de la série de romans de George R. R. Martin. La série se déroule dans le royaume de Westeros et suit plusieurs familles nobles alors qu'elles se disputent le trône de fer. Game of Thrones est connue pour ses personnages complexes, ses retournements de situation inattendus et son univers fantastique."
+    },
+    {
+      "id": 3,
+      "type": "Série",
+      "titre": "Stranger Things",
+      "auteur": "The Duffer Brothers",
+      "annee": 2016,
+      "img": "stranger_things_affiche.jpg",
+      "description": "Stranger Things, créée par les frères Duffer, se déroule dans les années 1980 à Hawkins, une petite ville où des événements étranges commencent à se produire. La série mélange des éléments de science-fiction, d'horreur et de mystère, suivant un groupe d'enfants alors qu'ils tentent de comprendre les phénomènes surnaturels et de sauver leur ami disparu."
+    },
+    {
+      "id": 4,
+      "type": "Série",
+      "titre": "The Sopranos",
+      "auteur": "David Chase",
+      "annee": 1999,
+      "img": "the_sopranos_affiche.jpg",
+      "description": "The Sopranos, créée par David Chase, est une série dramatique qui suit la vie de Tony Soprano, un chef de la mafia du New Jersey. La série explore les complexités de la famille, du crime organisé et les défis que Tony doit relever en tant que criminel et père de famille. The Sopranos est acclamée pour son écriture complexe et ses performances exceptionnelles."
+    },
+    {
+      "id": 5,
+      "type": "Série",
+      "titre": "Better Call Saul",
+      "auteur": "Vince Gilligan, Peter Gould",
+      "annee": 2015,
+      "img": "better_call_saul_affiche.jpg",
+      "description": "Better Call Saul, créée par Vince Gilligan et Peter Gould, est un prequel de Breaking Bad. La série se concentre sur Jimmy McGill, un avocat ambitieux avant qu'il ne devienne Saul Goodman. Elle explore son évolution, sa relation avec son frère Chuck et les choix moraux qui le conduisent à devenir l'avocat véreux que l'on connaît dans Breaking Bad."
+    },
+    {
+      "id": 6,
+      "type": "Série",
+      "titre": "The Wire",
+      "auteur": "David Simon",
+      "annee": 2002,
+      "img": "the_wire_affiche.jpg",
+      "description": "The Wire, créée par David Simon, explore les divers aspects de la ville de Baltimore, y compris la police, les écoles, les médias et le trafic de drogue. La série se caractérise par une distribution étendue de personnages et une exploration approfondie des problèmes sociaux. The Wire est saluée pour sa réalisme et son commentaire sur la société américaine."
+    },
+    {
+      "id": 7,
+      "type": "Série",
+      "titre": "Sherlock",
+      "auteur": "Mark Gatiss, Steven Moffat",
+      "annee": 2010,
+      "img": "sherlock_affiche.jpg",
+      "description": "Sherlock, créée par Mark Gatiss et Steven Moffat, est une adaptation contemporaine des aventures de Sherlock Holmes. La série suit le célèbre détective, Sherlock Holmes, et son ami le Dr John Watson, alors qu'ils résolvent des crimes complexes à Londres. Benedict Cumberbatch incarne Holmes avec Martin Freeman dans le rôle de Watson."
+    },
+    {
+      "id": 8,
+      "type": "Série",
+      "titre": "Westworld",
+      "auteur": "Jonathan Nolan, Lisa Joy",
+      "annee": 2016,
+      "img": "westworld_affiche.jpg",
+      "description": "Westworld, créée par Jonathan Nolan et Lisa Joy, se déroule dans un parc d'attractions futuriste où les visiteurs peuvent interagir avec des hôtes androïdes dotés d'intelligence artificielle. La série explore les thèmes de la conscience, de la libre volonté et de la moralité alors que les hôtes commencent à remettre en question leur existence programmée."
+    },
+    {
+      "id": 9,
+      "type": "Série",
+      "titre": "Mindhunter",
+      "auteur": "Joe Penhall",
+      "annee": 2017,
+      "img": "mindhunter_affiche.jpg",
+      "description": "Mindhunter, créée par Joe Penhall, est basée sur le livre du même nom. La série suit deux agents du FBI, Holden Ford et Bill Tench, ainsi qu'une psychologue, Wendy Carr, alors qu'ils développent le profilage criminel et étudient les tueurs en série. La série explore les débuts de la psychologie criminelle et les défis de comprendre l'esprit criminel."
+    },
+    {
+      "id": 10,
+      "type": "Série",
+      "titre": "The Crown",
+      "auteur": "Peter Morgan",
+      "annee": 2016,
+      "img": "the_crown_affiche.jpg",
+      "description": "The Crown, créée par Peter Morgan, retrace l'histoire du règne de la reine Elizabeth II depuis ses débuts. La série explore les événements historiques, les relations familiales et les responsabilités de la monarchie britannique. The Crown est saluée pour ses performances exceptionnelles, sa production somptueuse et son approche nuancée de l'histoire récente."
+    }
   ],
-  "bds":[
-    {"id": 1, "titre": "Asterix", "realisateur": "René Goscinny, Albert Uderzo", "annee": 1959, "img": "asterix_affiche.jpg"},
-    {"id": 2, "titre": "Tintin", "realisateur": "Hergé", "annee": 1929, "img": "tintin_affiche.jpg"},
-    {"id": 3, "titre": "Watchmen", "realisateur": "Alan Moore, Dave Gibbons", "annee": 1986, "img": "watchmen_affiche.jpg"},
-    {"id": 4, "titre": "Maus", "ecrivain": "Art Spiegelman", "annee": 1980, "img": "maus_affiche.jpg"},
-    {"id": 5, "titre": "Persepolis", "ecrivain": "Marjane Satrapi", "annee": 2000, "img": "persepolis_affiche.jpg"},
-    {"id": 6, "titre": "Batman: Year One", "ecrivain": "Frank Miller, David Mazzucchelli", "annee": 1987, "img": "batman_year_one_affiche.jpg"},
-    {"id": 7, "titre": "Sandman", "ecrivain": "Neil Gaiman", "annee": 1989, "img": "sandman_affiche.jpg"},
-    {"id": 8, "titre": "Calvin and Hobbes", "ecrivain": "Bill Watterson", "annee": 1985, "img": "calvin_and_hobbes_affiche.jpg"},
-    {"id": 9, "titre": "Bone", "ecrivain": "Jeff Smith", "annee": 1991, "img": "bone_affiche.jpg"},
-    {"id": 10, "titre": "Fun Home", "ecrivain": "Alison Bechdel", "annee": 2006, "img": "fun_home_affiche.jpg"}
+  "bds": [
+    {
+      "id": 1,
+      "type": "BD",
+      "titre": "Asterix",
+      "realisateur": "René Goscinny, Albert Uderzo",
+      "annee": 1959,
+      "img": "asterix_affiche.jpg",
+      "description": "Asterix, créé par René Goscinny et Albert Uderzo, est une bande dessinée humoristique qui se déroule dans l'ancienne Gaule occupée par les Romains. Elle suit les aventures d'Asterix, un petit guerrier gaulois doté d'une force surhumaine, et de son ami Obélix. La série mélange l'histoire, l'humour et la satire sociale."
+    },
+    {
+      "id": 2,
+      "type": "BD",
+      "titre": "Tintin",
+      "realisateur": "Hergé",
+      "annee": 1929,
+      "img": "tintin_affiche.jpg",
+      "description": "Les aventures de Tintin, créées par Hergé, suivent les voyages du jeune reporter Tintin, son chien Milou et ses amis alors qu'ils résolvent des mystères à travers le monde. Les bandes dessinées sont célèbres pour leurs personnages captivants, leurs intrigues palpitantes et l'attention aux détails dans le dessin."
+    },
+    {
+      "id": 3,
+      "type": "BD",
+      "titre": "Watchmen",
+      "realisateur": "Alan Moore, Dave Gibbons",
+      "annee": 1986,
+      "img": "watchmen_affiche.jpg",
+      "description": "Watchmen, créé par Alan Moore et Dave Gibbons, est une bande dessinée de super-héros qui explore des thèmes complexes tels que la morale, la politique et la nature de l'héroïsme. L'histoire se déroule dans un monde alternatif où les super-héros sont traités comme des hors-la-loi, et elle a été saluée pour son approche novatrice du genre."
+    },
+    {
+      "id": 4,
+      "type": "BD",
+      "titre": "Maus",
+      "ecrivain": "Art Spiegelman",
+      "annee": 1980,
+      "img": "maus_affiche.jpg",
+      "description": "Maus, écrit par Art Spiegelman, est une bande dessinée qui raconte l'histoire de la famille de l'auteur pendant l'Holocauste, en utilisant des métaphores animales pour représenter les différentes nationalités. La série explore les effets durables du traumatisme, la relation père-fils et la manière dont la mémoire collective est transmise."
+    },
+    {
+      "id": 5,
+      "type": "BD",
+      "titre": "Persepolis",
+      "ecrivain": "Marjane Satrapi",
+      "annee": 2000,
+      "img": "persepolis_affiche.jpg",
+      "description": "Persepolis, écrit par Marjane Satrapi, est une bande dessinée autobiographique qui relate l'enfance et l'adolescence de l'auteure pendant et après la Révolution iranienne. La série explore les thèmes de l'identité, de la liberté et de la résilience dans un contexte politique complexe."
+    },
+    {
+      "id": 6,
+      "type": "BD",
+      "titre": "Batman: Year One",
+      "ecrivain": "Frank Miller, David Mazzucchelli",
+      "annee": 1987,
+      "img": "batman_year_one_affiche.jpg",
+      "description": "Batman: Year One, écrit par Frank Miller et illustré par David Mazzucchelli, retrace les débuts de Batman en tant que justicier à Gotham City. La bande dessinée explore les premières expériences de Batman et du lieutenant James Gordon, alors qu'ils tentent de nettoyer la ville de la corruption et du crime."
+    },
+    {
+      "id": 7,
+      "type": "BD",
+      "titre": "Sandman",
+      "ecrivain": "Neil Gaiman",
+      "annee": 1989,
+      "img": "sandman_affiche.jpg",
+      "description": "Sandman, écrit par Neil Gaiman, est une série de bandes dessinées fantastiques qui suit Dream, l'un des Éternels, alors qu'il traverse des mondes et des époques. La série explore des thèmes tels que la mythologie, les rêves et l'immortalité, et elle est acclamée pour son écriture imaginative et ses illustrations captivantes."
+    },
+    {
+      "id": 8,
+      "type": "BD",
+      "titre": "Calvin and Hobbes",
+      "ecrivain": "Bill Watterson",
+      "annee": 1985,
+      "img": "calvin_and_hobbes_affiche.jpg",
+      "description": "Calvin and Hobbes, créé par Bill Watterson, est une bande dessinée humoristique qui suit les aventures de Calvin, un jeune garçon imaginatif, et de son tigre en peluche anthropomorphe, Hobbes. La série explore l'enfance, l'imagination et la philosophie de la vie à travers le regard espiègle de Calvin."
+    },
+    {
+      "id": 9,
+      "type": "BD",
+      "titre": "Bone",
+      "ecrivain": "Jeff Smith",
+      "annee": 1991,
+      "img": "bone_affiche.jpg",
+      "description": "Bone, écrit par Jeff Smith, est une épopée fantastique qui suit les trois cousins Bone, Fone Bone, Phoney Bone et Smiley Bone, alors qu'ils se retrouvent plongés dans un monde mystérieux. La série mélange l'humour, l'aventure et l'émotion, et elle est saluée pour son storytelling captivant et son style artistique unique."
+    },
+    {
+      "id": 10,
+      "type": "BD",
+      "titre": "Fun Home",
+      "ecrivain": "Alison Bechdel",
+      "annee": 2006,
+      "img": "fun_home_affiche.jpg",
+      "description": "Fun Home, écrit par Alison Bechdel, est un récit graphique autobiographique qui explore la relation complexe de l'auteure avec son père, son identité sexuelle et la découverte de sa propre sexualité. La bande dessinée aborde des thèmes tels que la famille, l'acceptation de soi et la compréhension de son passé."
+    }
   ]
 }

@@ -60,7 +60,6 @@ class MyAppState extends ChangeNotifier {
 
   IconData favorite_icon(Film film){
     IconData icon;
-    print(favorites);
     if (favorites.contains(film)) {
       icon = Icons.favorite;
     } else {
@@ -246,36 +245,74 @@ class GeneratorFilm extends StatelessWidget {
       );
     }
 
-    IconData icon;
-    if (appState.favorites.contains(films)) {
-      icon = Icons.favorite;
-    } else {
-      icon = Icons.favorite_border;
-    }
+    // return ListView(
+    //   children: [
+    //     Padding(
+    //       padding: const EdgeInsets.all(20),
+    //       child : Text('You have '
+    //             '${films.length} films:'),
+    //     ),
+    //     for (var film in films)
+    //       ListTile(
+    //         leading: Icon(Icons.fiber_manual_record_outlined),
+    //         title: 
+    //             Column(
+    //               children: [
+    //                 Text(film.titre),
+    //                 Image.asset("${film.img}", width: 50, height: 50),
+    //                 ElevatedButton.icon(
+    //                   onPressed: () {
+    //                     appState.toggleFavorite(film);
+    //                   },
+    //                   icon: Icon(appState.favorite_icon(film)),
+    //                   label: Text('Like'),
+    //                 ),
+    //               ],
+    //             ),
+    //         // Row(
+    //         //   children: [
+    //         //     Expanded(
+    //         //       child: Text(film.titre), 
+    //         //     ),
+    //         //     Expanded(
+    //         //       child: Image.asset("${film.img}"), 
+    //         //     ),
+    //         //     ElevatedButton.icon(
+    //         //       onPressed: () {
+    //         //         appState.toggleFavorite(film);
+    //         //       },
+    //         //       icon: Icon(appState.favorite_icon(film)),
+    //         //       label: Text('Like'),
+    //         //     ),
+    //         //   ],
+    //         // ),
+    //       ),
+    //   ],
+    // );
+  return GridView.builder(
+      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+        maxCrossAxisExtent: 300.0, // Taille maximale pour chaque élément (ajustez selon vos besoins)
+        crossAxisSpacing: 8.0, // Espacement horizontal entre les colonnes
+        mainAxisSpacing: 8.0, // Espacement vertical entre les lignes
+      ),
+      itemCount: films.length,
+      itemBuilder: (context, index) {
+        var film = films[index];
 
-    return ListView(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(20),
-          child : Text('You have '
-                '${films.length} films:'),
-        ),
-        for (var film in films)
-          ListTile(
-            leading: Icon(Icons.fiber_manual_record_outlined),
-            title: Row(
+        return Card(
+          child: IntrinsicHeight(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  child: Text(film.titre), 
+                  child: Text(film.titre),
                 ),
                 Expanded(
-                  child: Text('réalisateur : ${film.realisateur}'), 
-                ),
-                Expanded(
-                  child: Text('date : ${film.annee}'), 
-                ),
-                Expanded(
-                  child: Image.asset("${film.img}"), 
+                  flex: 2,
+                  child: AspectRatio(
+                    aspectRatio: 3 / 4,
+                    child: Image.asset("${film.img}", fit: BoxFit.cover),
+                  ),
                 ),
                 ElevatedButton.icon(
                   onPressed: () {
@@ -287,8 +324,11 @@ class GeneratorFilm extends StatelessWidget {
               ],
             ),
           ),
-      ],
+        );
+      },
     );
+
+
   }
 }
 

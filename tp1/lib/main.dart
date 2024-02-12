@@ -447,7 +447,7 @@ class FavoritesPage extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.favorite),
             title: Text('Nom: ${pair.titre}'),
-            subtitle: Text('Auteur: ${pair.auteur} | Année: ${pair.annee} | ${pair.runtimeType}'),
+            subtitle: Text('Auteur: ${pair.auteur} | Année: ${pair.annee} | ${pair.type}'),
             trailing: Image.asset("${pair.img}"),
           ),
       ],

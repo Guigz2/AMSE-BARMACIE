@@ -29,9 +29,9 @@ class MyApp extends StatelessWidget {
 
 class MyAppState extends ChangeNotifier {
 
-  var favorites = List<Film>.empty(growable: true);
+  var favorites = List<dynamic>.empty(growable: true);
 
-  void toggleFavorite(Film currents){
+  void toggleFavorite(var currents){
     if (favorites.contains(currents)){
       favorites.remove(currents);
     } else {
@@ -40,9 +40,10 @@ class MyAppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  late List<Film> films;
+  // late List<Film> films;
+  var films  = List<Film>.empty();
 
-  Future<void> readJson() async {
+  Future<void> readJson_films() async {
     try {
       final String response = await rootBundle.loadString('films.json');
       final jsonData = json.decode(response);
@@ -58,9 +59,47 @@ class MyAppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  IconData favorite_icon(Film film){
+  // late List<Series> series;
+  var series  = List<Series>.empty();
+
+  Future<void> readJson_series() async {
+    try {
+      final String response = await rootBundle.loadString('films.json');
+      final jsonData = json.decode(response);
+      // Récupérer la liste de films à partir du Map
+      List<dynamic> seriesData = jsonData['series'];
+      // Créer une liste d'objets Film à partir de la liste de données
+      series = seriesData.map((seriesData) => Series.fromJson(seriesData)).toList();
+      // Utiliser setState pour mettre à jour l'état du widget
+    }
+    catch (e) {
+      print("Erreur lors de la lecture du fichier JSON : $e");
+    }
+    notifyListeners();
+  }
+
+  // late List<BDs> bds;
+  var bds  = List<BDs>.empty();
+
+  Future<void> readJson_bds() async {
+    try {
+      final String response = await rootBundle.loadString('films.json');
+      final jsonData = json.decode(response);
+      // Récupérer la liste de films à partir du Map
+      List<dynamic> bdsData = jsonData['BDs'];
+      // Créer une liste d'objets Film à partir de la liste de données
+      bds = bdsData.map((bdsData) => BDs.fromJson(bdsData)).toList();
+      // Utiliser setState pour mettre à jour l'état du widget
+    }
+    catch (e) {
+      print("Erreur lors de la lecture du fichier JSON : $e");
+    }
+    notifyListeners();
+  }
+
+  IconData favorite_icon(var media){
     IconData icon;
-    if (favorites.contains(film)) {
+    if (favorites.contains(media)) {
       icon = Icons.favorite;
     } else {
       icon = Icons.favorite_border;
@@ -98,7 +137,7 @@ class Film {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is Film &&
+    return other is Series &&
         other.id == id &&
         other.titre == titre &&
         other.realisateur == realisateur &&
@@ -116,8 +155,9 @@ class Series {
   final String titre;
   final String realisateur;
   final int annee;
+  final String img;
 
-  Series({required this.id, required this.titre, required this.realisateur, required this.annee});
+  Series({required this.id, required this.titre, required this.realisateur, required this.annee, required this.img});
 
   factory Series.fromJson(Map<String, dynamic> json) {
     return Series(
@@ -125,25 +165,60 @@ class Series {
       titre: json['titre'] as String? ?? 'null', // Utilisation de 'as String?' pour indiquer que la valeur peut être null
       realisateur: json['realisateur'] as String? ?? 'null', // Utilisation de 'as String?' pour indiquer que la valeur peut être null
       annee: json['annee'] as int? ?? 0, // Utilisation de 'as int?' pour indiquer que la valeur peut être null
+      img: json['img'] as String? ?? 'null',
     );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is Film &&
+        other.id == id &&
+        other.titre == titre &&
+        other.realisateur == realisateur &&
+        other.annee == annee;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^ titre.hashCode ^ realisateur.hashCode ^ annee.hashCode;
   }
 }
 
-class Sports {
+class BDs {
   final int id;
   final String titre;
-  final String realisateur;
+  final String ecrivain;
   final int annee;
+  final String img;
 
-  Sports({required this.id, required this.titre, required this.realisateur, required this.annee});
+  BDs({required this.id, required this.titre, required this.ecrivain, required this.annee, required this.img});
 
-  factory Sports.fromJson(Map<String, dynamic> json) {
-    return Sports(
+  factory BDs.fromJson(Map<String, dynamic> json) {
+    return BDs(
       id: json['id'] as int? ?? 0, // Utilisation de 'as int?' pour indiquer que la valeur peut être null
       titre: json['titre'] as String? ?? 'null', // Utilisation de 'as String?' pour indiquer que la valeur peut être null
-      realisateur: json['realisateur'] as String? ?? 'null', // Utilisation de 'as String?' pour indiquer que la valeur peut être null
+      ecrivain: json['realisateur'] as String? ?? 'null', // Utilisation de 'as String?' pour indiquer que la valeur peut être null
       annee: json['annee'] as int? ?? 0, // Utilisation de 'as int?' pour indiquer que la valeur peut être null
+      img: json['img'] as String? ?? 'null',
     );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is BDs &&
+        other.id == id &&
+        other.titre == titre &&
+        other.ecrivain == ecrivain &&
+        other.annee == annee;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^ titre.hashCode ^ ecrivain.hashCode ^ annee.hashCode;
   }
 }
 
@@ -152,31 +227,18 @@ class _MyHomePageState extends State<MyHomePage> {
   var selectedIndex = 0;
 
   @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     body: ListView(
-  //       children: [
-  //         for(var film in films)
-  //           ListTile( 
-  //             title: Text('ID: ${film.id}: Nom: ${film.titre}'),
-  //             subtitle: Text('Réalisateur: ${film.realisateur}: Année: ${film.annee}'),
-  //           ),
-  //       ],
-  //     )
-  //   );
-  // }
 
   Widget build(BuildContext context) {
     Widget page;
     switch (selectedIndex) {
       case 0:
-        page = GeneratorFilm();
+        page = Liste_Film();
         break;
       case 1:
-        page = Placeholder();
+        page = Liste_Series();
         break;
       case 2:
-        page = Placeholder();
+        page = Liste_BDs();
         break;
       case 3:
         page = FavoritesPage();
@@ -202,8 +264,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       label: Text('Séries'),
                     ),
                     NavigationRailDestination(
-                      icon: Icon(Icons.sports_handball),
-                      label: Text('Sports'),
+                      icon: Icon(Icons.book),
+                      label: Text('BDs'),
                     ),
                     NavigationRailDestination(
                       icon: Icon(Icons.favorite),
@@ -232,12 +294,12 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class GeneratorFilm extends StatelessWidget {
+class Liste_Film extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
-    appState.readJson();
+    appState.readJson_films();
     List<Film> films = appState.films;
 
     if (films.isEmpty) {
@@ -245,50 +307,6 @@ class GeneratorFilm extends StatelessWidget {
       );
     }
 
-    // return ListView(
-    //   children: [
-    //     Padding(
-    //       padding: const EdgeInsets.all(20),
-    //       child : Text('You have '
-    //             '${films.length} films:'),
-    //     ),
-    //     for (var film in films)
-    //       ListTile(
-    //         leading: Icon(Icons.fiber_manual_record_outlined),
-    //         title: 
-    //             Column(
-    //               children: [
-    //                 Text(film.titre),
-    //                 Image.asset("${film.img}", width: 50, height: 50),
-    //                 ElevatedButton.icon(
-    //                   onPressed: () {
-    //                     appState.toggleFavorite(film);
-    //                   },
-    //                   icon: Icon(appState.favorite_icon(film)),
-    //                   label: Text('Like'),
-    //                 ),
-    //               ],
-    //             ),
-    //         // Row(
-    //         //   children: [
-    //         //     Expanded(
-    //         //       child: Text(film.titre), 
-    //         //     ),
-    //         //     Expanded(
-    //         //       child: Image.asset("${film.img}"), 
-    //         //     ),
-    //         //     ElevatedButton.icon(
-    //         //       onPressed: () {
-    //         //         appState.toggleFavorite(film);
-    //         //       },
-    //         //       icon: Icon(appState.favorite_icon(film)),
-    //         //       label: Text('Like'),
-    //         //     ),
-    //         //   ],
-    //         // ),
-    //       ),
-    //   ],
-    // );
   return GridView.builder(
       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
         maxCrossAxisExtent: 300.0, // Taille maximale pour chaque élément (ajustez selon vos besoins)
@@ -327,11 +345,116 @@ class GeneratorFilm extends StatelessWidget {
         );
       },
     );
-
-
   }
 }
 
+class Liste_Series extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    var appState = context.watch<MyAppState>();
+    appState.readJson_series();
+    List<Series> series = appState.series;
+
+    if (series.isEmpty) {
+      return Center(child: Text("No series yet"),
+      );
+    }
+
+  return GridView.builder(
+      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+        maxCrossAxisExtent: 300.0, // Taille maximale pour chaque élément (ajustez selon vos besoins)
+        crossAxisSpacing: 8.0, // Espacement horizontal entre les colonnes
+        mainAxisSpacing: 8.0, // Espacement vertical entre les lignes
+      ),
+      itemCount: series.length,
+      itemBuilder: (context, index) {
+        var serie = series[index];
+
+        return Card(
+          child: IntrinsicHeight(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Text(serie.titre),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: AspectRatio(
+                    aspectRatio: 3 / 4,
+                    child: Image.asset("${serie.img}", fit: BoxFit.cover),
+                  ),
+                ),
+                ElevatedButton.icon(
+                  onPressed: () {
+                    appState.toggleFavorite(serie);
+                  },
+                  icon: Icon(appState.favorite_icon(serie)),
+                  label: Text('Like'),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class Liste_BDs extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    var appState = context.watch<MyAppState>();
+    appState.readJson_bds();
+    List<BDs> bds = appState.bds;
+
+    if (bds.isEmpty) {
+      return Center(child: Text("No series yet"),
+      );
+    }
+
+  return GridView.builder(
+      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+        maxCrossAxisExtent: 300.0, // Taille maximale pour chaque élément (ajustez selon vos besoins)
+        crossAxisSpacing: 8.0, // Espacement horizontal entre les colonnes
+        mainAxisSpacing: 8.0, // Espacement vertical entre les lignes
+      ),
+      itemCount: bds.length,
+      itemBuilder: (context, index) {
+        var bd = bds[index];
+
+        return Card(
+          child: IntrinsicHeight(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Text(bd.titre),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: AspectRatio(
+                    aspectRatio: 3 / 4,
+                    child: Image.asset("${bd.img}", fit: BoxFit.cover),
+                  ),
+                ),
+                ElevatedButton.icon(
+                  onPressed: () {
+                    appState.toggleFavorite(bd);
+                  },
+                  icon: Icon(appState.favorite_icon(bd)),
+                  label: Text('Like'),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
 
 class FavoritesPage extends StatelessWidget {
   @override

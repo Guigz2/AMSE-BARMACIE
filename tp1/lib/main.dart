@@ -346,14 +346,15 @@ class FavoritesPage extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(20),
-          child : Text('You have '
-                '${appState.favorites.length} favorites:'),
+          child : Text('Vous avez '
+                '${appState.favorites.length} favories:'),
         ),
         for (var pair in appState.favorites)
           ListTile(
             leading: Icon(Icons.favorite),
-            title: Text('ID: ${pair.id}: Nom: ${pair.titre}'),
-            subtitle: Text('Réalisateur: ${pair.realisateur}: Année: ${pair.annee}'),
+            title: Text('Nom: ${pair.titre}'),
+            subtitle: Text('Réalisateur: ${pair.realisateur} | Année: ${pair.annee} | ${pair.runtimeType}'),
+            trailing: Image.asset("${pair.img}"),
           ),
       ],
     );

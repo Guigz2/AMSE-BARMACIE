@@ -121,8 +121,9 @@ class Media {
   final int annee;
   final String img;
   final String description;
+  final String type;
 
-  Media({required this.id, required this.titre, required this.auteur, required this.annee, required this.img, required this.description});
+  Media({required this.id, required this.titre, required this.auteur, required this.annee, required this.img, required this.description, required this.type});
 
   factory Media.fromJson(Map<String, dynamic> json) {
     return Media(
@@ -132,6 +133,7 @@ class Media {
       annee: json['annee'] as int? ?? 0, // Utilisation de 'as int?' pour indiquer que la valeur peut être null
       img: json['img'] as String? ?? 'null',
       description: json['description'] as String? ?? 'null',
+      type: json['type'] as String? ?? 'null',
     );
   }
 

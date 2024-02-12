@@ -316,7 +316,19 @@ class Liste_Series extends StatelessWidget {
       itemBuilder: (context, index) {
         var serie = series[index];
 
-        return Card(
+        return ElevatedButton(
+          onPressed: () {
+            // Naviguer vers la page de destination en passant des données
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Information(data: serie),
+              ),
+            );
+          }, 
+          child:
+          
+          Card(
           child: IntrinsicHeight(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -341,6 +353,7 @@ class Liste_Series extends StatelessWidget {
               ],
             ),
           ),
+        ),
         );
       },
     );
@@ -370,7 +383,19 @@ class Liste_BDs extends StatelessWidget {
       itemBuilder: (context, index) {
         var bd = bds[index];
 
-        return Card(
+        return ElevatedButton(
+          onPressed: () {
+            // Naviguer vers la page de destination en passant des données
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Information(data: bd),
+              ),
+            );
+          }, 
+          child:
+        
+          Card(
           child: IntrinsicHeight(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -395,6 +420,7 @@ class Liste_BDs extends StatelessWidget {
               ],
             ),
           ),
+        ),
         );
       },
     );
@@ -430,47 +456,65 @@ class FavoritesPage extends StatelessWidget {
 }
 
 class Information extends StatelessWidget {
-  
-  
   final Media data;
 
   Information({required this.data});
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Image à gauche
-          Container(
-            width: 120.0, // Ajustez la largeur de l'image selon vos besoins
-            height: 160.0, // Ajustez la hauteur de l'image selon vos besoins
-            child: Image.asset(
-              data.img,
-              fit: BoxFit.cover,
-            ),
-          ),
-          // Informations à droite
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    data.titre,
-                    style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-                  ),
-                  Text("Auteur: ${data.auteur}"),
-                  Text("Année: ${data.annee}"),
-                  SizedBox(height: 8.0),
-                  Text("${data.description}"),
-                ],
-              ),
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Détails du Média'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () {
+              // Naviguer vers l'écran d'accueil
+              MyHomePage();
+            },
           ),
         ],
+      ),
+      body: Card(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Image à gauche
+            Container(
+              width: 120.0, // Ajustez la largeur de l'image selon vos besoins
+              height: 160.0, // Ajustez la hauteur de l'image selon vos besoins
+              child: Image.asset(
+                data.img,
+                fit: BoxFit.cover,
+              ),
+            ),
+            // Informations à droite
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      data.titre,
+                      style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                    ),
+                    Text("Auteur: ${data.auteur}"),
+                    Text("Année: ${data.annee}"),
+                    SizedBox(height: 8.0),
+                    Text("${data.description}"),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,9 +1,8 @@
 {
   "films": [
-    {"id": 1,"titre": "Inception","realisateur": "Christopher Nolan","annee":2020},
-    {"id": 2,"titre": "Ouioui","realisateur": "haaaaaa","annee":2021},
-    {"id": 3,"titre": "Inception","realisateur": "Christopher Nolan","annee":2020},
-    {"id": 4,"titre": "Ouioui","realisateur": "haaaaaa","annee":2021},
-    {"id": 5,"titre": "Inception","realisateur": "Christopher Nolan","annee":2020}
+    {"id": 1,"titre": "Inception","realisateur": "Christopher Nolan","annee":2020,"img":"inception_affiche.jpg"},
+    {"id": 2,"titre": "La La Land","realisateur": "Quelqu'un","annee":2022,"img":"la_la_land_affiche.jpg"},
+    {"id": 3,"titre": "Pulp Fiction","realisateur": "Christopher Nolan","annee":2020,"img":"pulp_fiction_affiche.jpg"},
+    {"id": 4,"titre": "Shawshank Redemption","realisateur": "haaaaaa","annee":2021,"img":"shawshank_redemption_affiche.jpg"}
   ]
 }

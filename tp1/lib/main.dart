@@ -28,14 +28,8 @@ class MyApp extends StatelessWidget {
 }
 
 class MyAppState extends ChangeNotifier {
-  var current = WordPair.random();
 
-  void getNext() {
-    current = WordPair.random();
-    notifyListeners();
-  }
-
-  var favorites = <Film>[];
+  var favorites = List<Film>.empty(growable: true);
 
   void toggleFavorite(Film currents){
     if (favorites.contains(currents)){
@@ -64,6 +58,17 @@ class MyAppState extends ChangeNotifier {
     notifyListeners();
   }
 
+  IconData favorite_icon(Film film){
+    IconData icon;
+    print(favorites);
+    if (favorites.contains(film)) {
+      icon = Icons.favorite;
+    } else {
+      icon = Icons.favorite_border;
+    }
+    return icon;
+  }
+
 }
 
 class MyHomePage extends StatefulWidget {
@@ -76,8 +81,9 @@ class Film {
   final String titre;
   final String realisateur;
   final int annee;
+  final String img;
 
-  Film({required this.id, required this.titre, required this.realisateur, required this.annee});
+  Film({required this.id, required this.titre, required this.realisateur, required this.annee, required this.img});
 
   factory Film.fromJson(Map<String, dynamic> json) {
     return Film(
@@ -85,6 +91,7 @@ class Film {
       titre: json['titre'] as String? ?? 'null', // Utilisation de 'as String?' pour indiquer que la valeur peut être null
       realisateur: json['realisateur'] as String? ?? 'null', // Utilisation de 'as String?' pour indiquer que la valeur peut être null
       annee: json['annee'] as int? ?? 0, // Utilisation de 'as int?' pour indiquer que la valeur peut être null
+      img: json['img'] as String? ?? 'null',
     );
   }
 }
@@ -251,11 +258,14 @@ class GeneratorFilm extends StatelessWidget {
                 Expanded(
                   child: Text('date : ${film.annee}'), 
                 ),
+                Expanded(
+                  child: Image.asset("${film.img}"), 
+                ),
                 ElevatedButton.icon(
                   onPressed: () {
                     appState.toggleFavorite(film);
                   },
-                  icon: Icon(icon),
+                  icon: Icon(appState.favorite_icon(film)),
                   label: Text('Like'),
                 ),
               ],

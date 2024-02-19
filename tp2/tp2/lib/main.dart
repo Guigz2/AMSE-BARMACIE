@@ -29,33 +29,53 @@ class MainApp extends State<MonApp> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
                 Expanded(
-                  child : Transform(
-                    transform: Matrix4.identity()
-                      ..rotateX(_angle_x)
-                      ..rotateZ(_angle_z),
-                    alignment: Alignment.center,
-                    child: Image.asset('asterix_affiche.jpg'),
+                  child : Container(
+                      clipBehavior: Clip.hardEdge,
+                      decoration: BoxDecoration(color: Colors.white),
+                      child : Transform(
+                        transform: Matrix4.identity()
+                          ..rotateX(_angle_x)
+                          ..rotateZ(_angle_z),
+                        alignment: Alignment.center,
+                        child: Image.asset('asterix_affiche.jpg'),
+                     ),
                   ),
                 ),
-                Slider(
-                  min:0,
-                  max: math.pi,
-                  value: _angle_x,
-                  onChanged: (double value){
-                    setState((){
-                      _angle_x = value;
-                    });
-                  },
+                Row( 
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("RotationX :"),
+                    Expanded( 
+                      child : Slider(
+                        min:0,
+                        max: math.pi,
+                        value: _angle_x,
+                        onChanged: (double value){
+                          setState((){
+                            _angle_x = value;
+                          });
+                        },
+                      ),
+                    ),
+                  ]
                 ),
-                Slider(
-                  min: 0,
-                  max: math.pi, 
-                  value: _angle_z,
-                  onChanged: (double value) {
-                    setState(() {
-                      _angle_z = value;
-                    });
-                  },
+                Row( 
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("RotationZ :"),
+                    Expanded( 
+                      child : Slider(
+                        min:0,
+                        max: math.pi,
+                        value: _angle_z,
+                        onChanged: (double value){
+                          setState((){
+                            _angle_z = value;
+                          });
+                        },
+                      ),
+                    ),
+                  ]
                 ),
               ]
             )

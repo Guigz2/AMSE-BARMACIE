@@ -10,10 +10,10 @@ void main() {
 
 class MonApp extends StatefulWidget{
   @override
-  MainApp createState() => MainApp();
+  Exo2Page createState() => Exo2Page();
 }
 
-class MainApp extends State<MonApp> {
+class Exo2Page extends State<MonApp> {
   double _angle_x = 0;
   double _angle_z = 0;
   bool _isMirrored = false;

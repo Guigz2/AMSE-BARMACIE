@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:typed_data';
 
-void main() {
-  runApp(MonApp());
-}
 
-class MonApp extends StatelessWidget {
+class Exo1Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

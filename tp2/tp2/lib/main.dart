@@ -1,115 +1,94 @@
 import 'package:flutter/material.dart';
-import 'dart:typed_data';
-import 'dart:math' as math;
-
+import 'Exo1.dart';
+import 'Exo2.dart' as Exo2;
+import 'Exo2b.dart' as Exo2b;
+import 'Exo4.dart' as Exo4;
 import 'package:flutter/widgets.dart';
 
+
 void main() {
-  runApp(MonApp());
+  runApp(MyApp());
 }
 
-class MonApp extends StatefulWidget{
+class MyApp extends StatelessWidget {
   @override
-  MainApp createState() => MainApp();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: MainApp(),
+    );
+  }
 }
 
-class MainApp extends State<MonApp> {
-  double _angle_x = 0;
-  double _angle_z = 0;
-  bool _isMirrored = false;
-  double _scale = 1;
-
+class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar : AppBar(
-          title: Text("Voici une image"),
+        appBar: AppBar(
+          title: Text("TP2"),
+          backgroundColor: Colors.blue,
         ),
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-                Expanded(
-                  child : Container(
-                      clipBehavior: Clip.hardEdge,
-                      decoration: BoxDecoration(color: Colors.white),
-                      child : Transform(
-                        transform: Matrix4.identity()
-                          ..rotateX(_angle_x)
-                          ..rotateZ(_angle_z)
-                          ..scale(_isMirrored ? -_scale:_scale, _scale),
-                        alignment: Alignment.center,
-                        child: Image.asset('asterix_affiche.jpg'),
-                     ),
-                  ),
-                ),
-                Row( 
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("RotationX :"),
-                    Expanded( 
-                      child : Slider(
-                        min:0,
-                        max: math.pi,
-                        value: _angle_x,
-                        onChanged: (double value){
-                          setState((){
-                            _angle_x = value;
-                          });
-                        },
+          child: ListView(
+            children: [
+              Card(
+                child: ListTile(
+                  title: Text("Exercice 1"),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Exo1Page(),
                       ),
-                    ),
-                  ]
-                ),
-                Row( 
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("RotationZ :"),
-                    Expanded( 
-                      child : Slider(
-                        min:0,
-                        max: math.pi,
-                        value: _angle_z,
-                        onChanged: (double value){
-                          setState((){
-                            _angle_z = value;
-                          });
-                        },
-                      ),
-                    ),
-                  ]
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      _isMirrored = !_isMirrored; 
-                    });
+                    );
                   },
-                  child: Text(_isMirrored ? 'Normal' : 'Miroir'), 
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('Scale: '),
-                    Expanded(
-                      child: Slider(
-                        min: 0, 
-                        max: 2.0, 
-                        value: _scale,
-                        onChanged: (double value) {
-                          setState(() {
-                            _scale = value;
-                          });
-                        },
+              ),
+              Card(
+                child: ListTile(
+                  title: Text("Exercice 2"),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Exo2.MonApp(),
                       ),
-                    ),
-                  ],
+                    );
+                  },
                 ),
-              ]
-            )
+              ),
+              Card(
+                child: ListTile(
+                  title: Text("Exercice 2b"),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Exo2b.MonApp(),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              Card(
+                child: ListTile(
+                  title: Text("Exercice 4"),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Exo4.DisplayTileWidget(),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              // Ajoute les autres exercices ici
+            ],
+          ),
         ),
       ),
     );
   }
 }
+

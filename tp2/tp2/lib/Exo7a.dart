@@ -51,6 +51,9 @@ class PositionedTilesState extends State<PositionedTiles> {
     creaList(nbcolbefore);
     inittile();
     melange();
+     
+    double screenLenght = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Moving Tiles"),
@@ -58,26 +61,24 @@ class PositionedTilesState extends State<PositionedTiles> {
       ),
       body: Column(
         children: [
-          Expanded(child:
           Container(
-            width : 512,
-            height : 512,
-            child :GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: nbcolbefore, 
-                        crossAxisSpacing: 4.0, 
-                        mainAxisSpacing: 4.0,
-                        childAspectRatio: 1, 
-                      ),
-                      itemCount: nbcol.toInt()*nbcol.toInt(), 
-                      itemBuilder: (context, index) {
+            width: screenLenght*0.5,
+            height: screenLenght*0.5,
+            child:
+          GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: nbcolbefore, 
+                      crossAxisSpacing: 4.0, 
+                      mainAxisSpacing: 4.0,
+                      childAspectRatio: 1, 
+                    ),
+                    itemCount: nbcol.toInt()*nbcol.toInt(), 
+                    itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: (){
                           onPressedMethod(index,emptytile);
                         },
                         child: Container(
-                            width: 50.0,  // Remplacez par la largeur souhaitée
-                            height: 50.0,
                             decoration: BoxDecoration(
                               border:
                                 (index%nbcolbefore == 0) //Colonne de gauche
@@ -111,17 +112,15 @@ class PositionedTilesState extends State<PositionedTiles> {
                             ),
                           ),
                         );
-                      },
-                    ),
+                    },
                   ),
                 ),
-          
           Row(
             children: [
               Text("Nombre de Colonnes :" + nbcol.toInt().toString()),
               Expanded(child: Slider(
-                          min:2,
-                          max: 20,
+                          min:3,
+                          max: 10,
                           value: nbcol,
                           onChanged: (double value){                            
                             setState((){
@@ -146,6 +145,12 @@ class PositionedTilesState extends State<PositionedTiles> {
       ),
     );
   }
+
+  showimage()
+  {
+
+  }
+
 
   onPressedMethod(int index, int Empty_Tile) {
       (Empty_Tile % nbcolbefore == 0) //Colonne de gauche

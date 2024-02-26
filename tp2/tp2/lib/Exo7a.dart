@@ -51,6 +51,9 @@ class PositionedTilesState extends State<PositionedTiles> {
     creaList(nbcolbefore);
     inittile();
     melange();
+     
+    double screenLenght = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Moving Tiles"),
@@ -58,13 +61,16 @@ class PositionedTilesState extends State<PositionedTiles> {
       ),
       body: Column(
         children: [
-          Expanded(child:
+          Container(
+            width: screenLenght*0.5,
+            height: screenLenght*0.5,
+            child:
           GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: nbcolbefore, 
                       crossAxisSpacing: 4.0, 
                       mainAxisSpacing: 4.0,
-                      childAspectRatio: 4, 
+                      childAspectRatio: 1, 
                     ),
                     itemCount: nbcol.toInt()*nbcol.toInt(), 
                     itemBuilder: (context, index) {
@@ -73,8 +79,6 @@ class PositionedTilesState extends State<PositionedTiles> {
                           onPressedMethod(index,emptytile);
                         },
                         child: Container(
-                            width: 50.0,  // Remplacez par la largeur souhaitée
-                            height: 50.0,
                             decoration: BoxDecoration(
                               border:
                                 (index%nbcolbefore == 0) //Colonne de gauche
@@ -141,6 +145,12 @@ class PositionedTilesState extends State<PositionedTiles> {
       ),
     );
   }
+
+  showimage()
+  {
+
+  }
+
 
   onPressedMethod(int index, int Empty_Tile) {
       (Empty_Tile % nbcolbefore == 0) //Colonne de gauche

@@ -75,11 +75,20 @@ class PositionedTilesState extends State<PositionedTiles> {
 
   bool first = true;
 
+  int choix = 0;
+
+  List<Tile2> listeTile = [];
   
   @override
   Widget build(BuildContext context) {
-    List<Tile2> listeTile = creaList(nbcolbefore);
+    creaList(nbcolbefore);
     inittile();
+    for(int i = 0; i<10;i++)
+    {
+      setState(() {
+        choix = math.Random.nextInt(4);
+      });
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text("Moving Tiles"),
@@ -90,7 +99,7 @@ class PositionedTilesState extends State<PositionedTiles> {
           Expanded(child:
           GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: nbcol.toInt(), 
+                      crossAxisCount: nbcolbefore, 
                       crossAxisSpacing: 4.0, 
                       mainAxisSpacing: 4.0,
                       childAspectRatio: 4, 
@@ -124,14 +133,19 @@ class PositionedTilesState extends State<PositionedTiles> {
                                         ? Border.all(color: Colors.black, width: 10)
                                         : Border.all(color: const Color.fromARGB(255, 255, 0, 0), width: 2.0)
                             ),
-                            child: Align(
-                                    alignment: listeTile[index].alignment,
-                                    widthFactor: 1 / nbcolbefore,
-                                    heightFactor: 1 / nbcolbefore,
-                                    child: Image.network(listeTile[index].imageURL),
-                          )
-                        ),
-                      );
+                            child: FittedBox(
+                              fit: BoxFit.fill,
+                              child: ClipRect(
+                                child: Align(
+                                  alignment: listeTile[index].alignment,
+                                  widthFactor: 1 / nbcolbefore,
+                                  heightFactor: 1 / nbcolbefore,
+                                  child: Image.network(listeTile[index].imageURL),
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
                     },
                   ),
                 ),
@@ -149,8 +163,9 @@ class PositionedTilesState extends State<PositionedTiles> {
                             if (nbcolbefore != nbcol.toInt())
                             {
                               setState(() {
-                                tiles.clear();
-                                tiles = List<Widget>.generate(nbcol.toInt()*nbcol.toInt(), (index) => TileWidget(Tile.randomColor()));
+                                listeTile.clear();
+                                first = true;
+                                //creaList(nbcol.toInt());
                                 nbcolbefore = nbcol.toInt();
                               });
                               
@@ -169,56 +184,56 @@ class PositionedTilesState extends State<PositionedTiles> {
       (Empty_Tile % nbcolbefore == 0) //Colonne de gauche
           ? ((index - Empty_Tile) == nbcolbefore) 
             ? setState(() {
-                tiles.insert(index, tiles.removeAt(Empty_Tile));
-                tiles.insert(Empty_Tile, tiles.removeAt(index-1));
+                listeTile.insert(index, listeTile.removeAt(Empty_Tile));
+                listeTile.insert(Empty_Tile, listeTile.removeAt(index-1));
                 emptytile = index;
               })
             : ((index - Empty_Tile) == -nbcolbefore)
               ? setState(() {
-                tiles.insert(index, tiles.removeAt(Empty_Tile));
-                tiles.insert(Empty_Tile, tiles.removeAt(index+1));
+                listeTile.insert(index, listeTile.removeAt(Empty_Tile));
+                listeTile.insert(Empty_Tile, listeTile.removeAt(index+1));
                 emptytile = index;
               })
               : ((index - Empty_Tile) == 1)
                 ? setState(() {
-                tiles.insert(index, tiles.removeAt(Empty_Tile));
+                listeTile.insert(index, listeTile.removeAt(Empty_Tile));
                 emptytile = index;
               })
                 : null
             : ((index-nbcolbefore)%nbcolbefore == 0) //Colonne de droite
               ? ((index - Empty_Tile) == nbcolbefore) 
                 ? setState(() {
-                    tiles.insert(index, tiles.removeAt(Empty_Tile));
-                    tiles.insert(Empty_Tile, tiles.removeAt(index-1));
+                    listeTile.insert(index, listeTile.removeAt(Empty_Tile));
+                    listeTile.insert(Empty_Tile, listeTile.removeAt(index-1));
                     emptytile = index;
                   })
                 : ((index - Empty_Tile) == -nbcolbefore)
                   ? setState(() {
-                    tiles.insert(index, tiles.removeAt(Empty_Tile));
-                    tiles.insert(Empty_Tile, tiles.removeAt(index+1));
+                    listeTile.insert(index, listeTile.removeAt(Empty_Tile));
+                    listeTile.insert(Empty_Tile, listeTile.removeAt(index+1));
                     emptytile = index;
                   })
                   : ((index - Empty_Tile) == -1)
                     ? setState(() {
-                    tiles.insert(index, tiles.removeAt(Empty_Tile));
+                    listeTile.insert(index, listeTile.removeAt(Empty_Tile));
                     emptytile = index;
                   })
                     : null
                 : ((index - Empty_Tile) == nbcolbefore) 
                   ? setState(() {
-                      tiles.insert(index, tiles.removeAt(Empty_Tile));
-                      tiles.insert(Empty_Tile, tiles.removeAt(index-1));
+                      listeTile.insert(index, listeTile.removeAt(Empty_Tile));
+                      listeTile.insert(Empty_Tile, listeTile.removeAt(index-1));
                       emptytile = index;
                     })
                   : ((index - Empty_Tile) == -nbcolbefore)
                     ? setState(() {
-                      tiles.insert(index, tiles.removeAt(Empty_Tile));
-                      tiles.insert(Empty_Tile, tiles.removeAt(index+1));
+                      listeTile.insert(index, listeTile.removeAt(Empty_Tile));
+                      listeTile.insert(Empty_Tile, listeTile.removeAt(index+1));
                       emptytile = index;
                     })
                     : ((index - Empty_Tile).abs() == 1)
                       ? setState(() {
-                        tiles.insert(index, tiles.removeAt(Empty_Tile));
+                        listeTile.insert(index, listeTile.removeAt(Empty_Tile));
                         emptytile = index;
                     })
                       : null;
@@ -227,7 +242,9 @@ class PositionedTilesState extends State<PositionedTiles> {
   inittile(){
     first == true
      ? setState(() {
-        tiles.insert(emptytile, TileWidget(Tile(Colors.transparent)));
+        emptytile = math.Random().nextInt(nbcolbefore*nbcolbefore);
+        listeTile.removeAt(emptytile);
+        listeTile.insert(emptytile, Tile2(imageURL: "https://img.freepik.com/photos-gratuite/surface-abstraite-textures-mur-pierre-beton-blanc_74190-8189.jpg?size=626&ext=jpg&ga=GA1.1.1908636980.1708732800&semt=ais", alignment: Alignment(0,0)));
         first = false;
     })
     : null;
@@ -240,23 +257,24 @@ class PositionedTilesState extends State<PositionedTiles> {
 
     for(int i=1;i<= indexTuile;i++){
       largeur += 2/(gridCount-1);
-      if(largeur >= 1){
+      if(largeur > 1){
         largeur = -1;
         hauteur += 2/(gridCount-1);
       }
     }
-    
+
+    /*print("largeur : "+ largeur.toString());
+    print("hauteur : "+ hauteur.toString());*/
+
     Tile2 tileCrea = Tile2(imageURL:'https://picsum.photos/512',alignment: Alignment(largeur,hauteur));
 
     return tileCrea;
   }
 
 creaList(int gridCount){
-  List<Tile2> aaa = [];  
-
+  print(gridCount);
   for(int i=0;i<gridCount*gridCount;i++){
-    aaa.add(croppedImageTile(i, gridCount));
+    listeTile.add(croppedImageTile(i, gridCount));
   }
-  return aaa;
   }
 }

@@ -5,6 +5,9 @@ import 'Exo2b.dart' as Exo2b;
 import 'Exo4.dart' as Exo4;
 import 'Exo5.dart' as Exo5;
 import 'Exo5b.dart' as Exo5b;
+import 'Exo6.dart' as Exo6;
+import 'Exo6b.dart' as Exo6b;
+import 'Exo6c.dart' as Exo6c;
 import 'package:flutter/widgets.dart';
 
 
@@ -106,6 +109,45 @@ class MainApp extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => Exo5b.MainApp(),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              Card(
+                child: ListTile(
+                  title: Text("Exercice 6"),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Exo6.PositionedTiles(),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              Card(
+                child: ListTile(
+                  title: Text("Exercice 6b"),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Exo6b.PositionedTiles(),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              Card(
+                child: ListTile(
+                  title: Text("Exercice 6c"),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Exo6c.PositionedTiles(),
                       ),
                     );
                   },

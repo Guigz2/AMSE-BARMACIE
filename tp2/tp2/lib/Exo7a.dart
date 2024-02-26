@@ -39,6 +39,7 @@ class PositionedTilesState extends State<PositionedTiles> {
   int emptytile = math.Random().nextInt(16);
   double nbcol = 4.0;
   int nbcolbefore = 4;
+  bool _isImageVisible = false;
 
   bool first = true;
 
@@ -61,7 +62,10 @@ class PositionedTilesState extends State<PositionedTiles> {
       ),
       body: Column(
         children: [
-          Container(
+          Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
             width: screenLenght*0.5,
             height: screenLenght*0.5,
             child:
@@ -115,6 +119,25 @@ class PositionedTilesState extends State<PositionedTiles> {
                     },
                   ),
                 ),
+                if (_isImageVisible) 
+                  Container(
+                    width: screenLenght*0.5,
+                    height: screenLenght*0.5, 
+                    child: Image.network(
+                      'https://picsum.photos/512', 
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+            ],
+          ),
+          ElevatedButton(
+            onPressed: () {
+              setState(() {
+                _isImageVisible = !_isImageVisible;
+              });
+            },
+            child: Text("Afficher l'image d'origine"),
+          ),
           Row(
             children: [
               Text("Nombre de Colonnes :" + nbcol.toInt().toString()),

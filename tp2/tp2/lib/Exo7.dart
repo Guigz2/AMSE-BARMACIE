@@ -283,7 +283,6 @@ creaList(int gridCount){
               case 2:
               print("8");
                 if((emptytile-nbcolbefore) > 0)
-                print("9");
                 {
                   setState(() {
                     print("10");

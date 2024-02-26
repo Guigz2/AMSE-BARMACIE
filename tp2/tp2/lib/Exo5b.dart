@@ -13,87 +13,82 @@ class Tile {
   Alignment alignment;
 
   Tile({required this.imageURL, required this.alignment});
-
-  Widget croppedImageTile() {
-    return FittedBox(
-      fit: BoxFit.fill,
-      child: ClipRect(
-        child: Container(
-          child: Align(
-            alignment: this.alignment,
-            widthFactor: 0.3,
-            heightFactor: 0.3,
-            child: Image.network(this.imageURL),
-          ),
-        ),
-      ),
-    );
-  }
 }
 
-Tile tile = new Tile(
-    imageURL: 'https://picsum.photos/512', alignment: Alignment(0, 0));
 
 
 class MainApp extends StatelessWidget {
+  
+  
   @override
   Widget build(BuildContext context) {
     int gridCount = 4; 
 
+    List<Tile> listeTile = creaList(gridCount);
+  
     return Scaffold(
       appBar: AppBar(
         title: Text('Plateau de Tuiles'),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(100.0), 
-        child: Center( 
-          child: Expanded(
-            child: Container( 
-              width: 700,
-              height: 700,
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: gridCount, 
-                  crossAxisSpacing: 4.0, 
-                  mainAxisSpacing: 4.0, 
+      body: GridView.builder(
+                  // Taille image totale :  512x512
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: gridCount, 
+                    crossAxisSpacing: 4.0, 
+                    mainAxisSpacing: 4.0, 
+                  ),
+                  itemCount: gridCount * gridCount, 
+                  itemBuilder: (context, index) {
+                    return Container(
+                            decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black, width: 0.5), 
+                          ),
+                    child: FittedBox(
+                      fit: BoxFit.fill,
+                      child: ClipRect(
+                        child: Align(
+                          alignment: listeTile[index].alignment,
+                          widthFactor: 1 / gridCount,
+                          heightFactor: 1 / gridCount,
+                          child: Image.network(listeTile[index].imageURL),
                 ),
-                itemCount: gridCount * gridCount, 
-                itemBuilder: (context, index) {
-                  return Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage(tile.imageURL),
-                            fit: BoxFit.cover,
-                            ),
-                          border: Border.all(color: Colors.black, width: 0.5), 
-                        ),
-                      ),
-                      Text(
-                        'Tuile ${index + 1}',
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ],
-                  );
-                },
               ),
             ),
-          ),
-        ),
+          );            
+        },
       ),
     );
   }
 
 
-  Widget createTileWidgetFrom(Tile tile) {
-    return InkWell(
-      child: tile.croppedImageTile(),
-      onTap: () {
-        print("tapped on tile");
-      },
-    );
+Tile croppedImageTile(int indexTuile, int gridCount) {
+
+    double largeur = -1;
+    double hauteur = -1;
+
+    for(int i=1;i<= indexTuile;i++){
+      largeur += 2/(gridCount-1);
+      if(largeur >= 1){
+        largeur = -1;
+        hauteur += 2/(gridCount-1);
+      }
+    }
+
+    print("largeur : "+ largeur.toString());
+    print("hauteur : "+ hauteur.toString());
+    Tile tileCrea = new Tile(imageURL:'https://picsum.photos/512',alignment: Alignment(largeur,hauteur));
+
+    return tileCrea;
   }
+
+creaList(int gridCount){
+  List<Tile> aaa = [];  
+
+  for(int i=0;i<gridCount*gridCount;i++){
+    aaa.add(croppedImageTile(i, gridCount));
+  }
+  return aaa;
+}
+
 }

@@ -83,12 +83,7 @@ class PositionedTilesState extends State<PositionedTiles> {
   Widget build(BuildContext context) {
     creaList(nbcolbefore);
     inittile();
-    for(int i = 0; i<10;i++)
-    {
-      setState(() {
-        choix = math.Random.nextInt(4);
-      });
-    }
+    melange();
     return Scaffold(
       appBar: AppBar(
         title: Text("Moving Tiles"),
@@ -245,7 +240,7 @@ class PositionedTilesState extends State<PositionedTiles> {
         emptytile = math.Random().nextInt(nbcolbefore*nbcolbefore);
         listeTile.removeAt(emptytile);
         listeTile.insert(emptytile, Tile2(imageURL: "https://img.freepik.com/photos-gratuite/surface-abstraite-textures-mur-pierre-beton-blanc_74190-8189.jpg?size=626&ext=jpg&ga=GA1.1.1908636980.1708732800&semt=ais", alignment: Alignment(0,0)));
-        first = false;
+        
     })
     : null;
   }
@@ -277,4 +272,68 @@ creaList(int gridCount){
     listeTile.add(croppedImageTile(i, gridCount));
   }
   }
+
+    melange(){
+      if(first == true)
+      {
+      for(int i = 0; i<1000;i++)
+        {
+          bool test = true;
+          while(test){
+                  setState(() {
+                  choix = random.nextInt(4);
+                });
+              switch (choix) {
+              case 0:
+                if((emptytile)%nbcolbefore != 0)
+                {
+                setState(() {
+                    listeTile.insert(emptytile-1, listeTile.removeAt(emptytile));
+                    emptytile = emptytile-1;
+                });
+                test = false;
+                }
+                break;
+
+              case 1:
+                if((emptytile-nbcolbefore + 1)%nbcolbefore != 0)
+                {
+                setState(() {
+                    listeTile.insert(emptytile+1, listeTile.removeAt(emptytile));
+                    emptytile = emptytile+1;
+                });
+                test = false;
+                }
+                break;
+
+              case 2:
+                if((emptytile-nbcolbefore) >= 0)
+                {
+                setState(() {
+                    listeTile.insert(emptytile-4, listeTile.removeAt(emptytile));
+                    listeTile.insert(emptytile, listeTile.removeAt(emptytile-4+1));
+                    emptytile = emptytile-4;
+                });
+                test = false;
+                }
+                break;
+
+              default:
+                if((emptytile+nbcolbefore) <= nbcolbefore*nbcolbefore-1)
+                {
+                setState(() {
+                    listeTile.insert(emptytile+4, listeTile.removeAt(emptytile));
+                    listeTile.insert(emptytile, listeTile.removeAt(emptytile+4-1));
+                    emptytile = emptytile+4;
+                });
+                test = false;
+                };
+            }
+          }
+
+
+          }
+          first = false;
+        }
+    }
 }

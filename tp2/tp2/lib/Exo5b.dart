@@ -31,27 +31,19 @@ class MainApp extends StatelessWidget {
         title: Text('Plateau de Tuiles'),
         centerTitle: true,
       ),
-      body: //Padding(
-        //padding: const EdgeInsets.all(100.0), 
-        //child: 
-        //Center( 
-          //child: 
-          GridView.builder(
-            // Taille image totale :  512x512
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: gridCount, 
-              crossAxisSpacing: 4.0, 
-              mainAxisSpacing: 4.0, 
-            ),
-            itemCount: gridCount * gridCount, 
-            itemBuilder: (context, index) {
-              return /*Stack(
-                alignment: Alignment.center,
-                children: [*/
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black, width: 0.5), 
-                    ),
+      body: GridView.builder(
+                  // Taille image totale :  512x512
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: gridCount, 
+                    crossAxisSpacing: 4.0, 
+                    mainAxisSpacing: 4.0, 
+                  ),
+                  itemCount: gridCount * gridCount, 
+                  itemBuilder: (context, index) {
+                    return Container(
+                            decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black, width: 0.5), 
+                          ),
                     child: FittedBox(
                       fit: BoxFit.fill,
                       child: ClipRect(
@@ -60,20 +52,12 @@ class MainApp extends StatelessWidget {
                           widthFactor: 1 / gridCount,
                           heightFactor: 1 / gridCount,
                           child: Image.network(listeTile[index].imageURL),
-                        ),
-                      ),
-                    ),
-                  );
-                  /*Text(
-                    'Tuile ${index + 1}',
-                    style: TextStyle(color: Colors.black),
-                  ),*/
-                /*],
-              );*/
-            },
-          ),
-          //),
-      //),
+                ),
+              ),
+            ),
+          );            
+        },
+      ),
     );
   }
 

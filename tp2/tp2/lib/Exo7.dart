@@ -59,15 +59,18 @@ class PositionedTilesState extends State<PositionedTiles> {
       body: Column(
         children: [
           Expanded(child:
-          GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: nbcolbefore, 
-                      crossAxisSpacing: 4.0, 
-                      mainAxisSpacing: 4.0,
-                      childAspectRatio: 4, 
-                    ),
-                    itemCount: nbcol.toInt()*nbcol.toInt(), 
-                    itemBuilder: (context, index) {
+          Container(
+            width : 512,
+            height : 512,
+            child :GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: nbcolbefore, 
+                        crossAxisSpacing: 4.0, 
+                        mainAxisSpacing: 4.0,
+                        childAspectRatio: 1, 
+                      ),
+                      itemCount: nbcol.toInt()*nbcol.toInt(), 
+                      itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: (){
                           onPressedMethod(index,emptytile);
@@ -108,15 +111,17 @@ class PositionedTilesState extends State<PositionedTiles> {
                             ),
                           ),
                         );
-                    },
+                      },
+                    ),
                   ),
                 ),
+          
           Row(
             children: [
               Text("Nombre de Colonnes :" + nbcol.toInt().toString()),
               Expanded(child: Slider(
-                          min:3,
-                          max: 10,
+                          min:2,
+                          max: 20,
                           value: nbcol,
                           onChanged: (double value){                            
                             setState((){

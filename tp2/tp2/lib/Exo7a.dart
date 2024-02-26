@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
-
+import 'package:flutter/cupertino.dart';
 import 'package:tp2/Exo4.dart';
 
 
@@ -39,10 +39,14 @@ class PositionedTilesState extends State<PositionedTiles> {
   int emptytile = math.Random().nextInt(16);
   double nbcol = 4.0;
   int nbcolbefore = 4;
+  bool _isImageVisible = false;
+  int compteur = 0;
 
   bool first = true;
 
-  int choix = 0;
+    int choix = 0;
+
+  int selectedDifficulty = 0;
 
   List<Tile2> listeTile = [];
   
@@ -61,7 +65,11 @@ class PositionedTilesState extends State<PositionedTiles> {
       ),
       body: Column(
         children: [
-          Container(
+          Text("Nombre de déplacements : " + compteur.toString()),
+          Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
             width: screenLenght*0.5,
             height: screenLenght*0.5,
             child:
@@ -115,6 +123,25 @@ class PositionedTilesState extends State<PositionedTiles> {
                     },
                   ),
                 ),
+                if (_isImageVisible) 
+                  Container(
+                    width: screenLenght*0.5,
+                    height: screenLenght*0.5, 
+                    child: Image.network(
+                      'https://picsum.photos/512', 
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+            ],
+          ),
+          ElevatedButton(
+            onPressed: () {
+              setState(() {
+                _isImageVisible = !_isImageVisible;
+              });
+            },
+            child: Text("Afficher l'image d'origine"),
+          ),
           Row(
             children: [
               Text("Nombre de Colonnes :" + nbcol.toInt().toString()),
@@ -133,6 +160,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                                 first = true;
                                 //creaList(nbcol.toInt());
                                 nbcolbefore = nbcol.toInt();
+                                compteur=0;
                               });
                               
                             }
@@ -141,6 +169,21 @@ class PositionedTilesState extends State<PositionedTiles> {
               ),
             ],
           ),
+          CupertinoSegmentedControl<int>(
+            children: {
+              0: Text('Easy'),
+              1: Text('Medium'),
+              2: Text('Hardore'),
+              3: Text('Good Luck'),
+            },
+            onValueChanged: (int newValue) {
+              setState(() {
+                selectedDifficulty = newValue;
+                compteur = 0;
+            }); 
+            },
+        groupValue: selectedDifficulty,
+        ),
         ],
       ),
     );
@@ -159,17 +202,20 @@ class PositionedTilesState extends State<PositionedTiles> {
                 listeTile.insert(index, listeTile.removeAt(Empty_Tile));
                 listeTile.insert(Empty_Tile, listeTile.removeAt(index-1));
                 emptytile = index;
+                compteur += 1;
               })
             : ((index - Empty_Tile) == -nbcolbefore)
               ? setState(() {
                 listeTile.insert(index, listeTile.removeAt(Empty_Tile));
                 listeTile.insert(Empty_Tile, listeTile.removeAt(index+1));
                 emptytile = index;
+                compteur += 1;
               })
               : ((index - Empty_Tile) == 1)
                 ? setState(() {
                 listeTile.insert(index, listeTile.removeAt(Empty_Tile));
                 emptytile = index;
+                compteur += 1;
               })
                 : null
             : ((index-nbcolbefore)%nbcolbefore == 0) //Colonne de droite
@@ -178,17 +224,20 @@ class PositionedTilesState extends State<PositionedTiles> {
                     listeTile.insert(index, listeTile.removeAt(Empty_Tile));
                     listeTile.insert(Empty_Tile, listeTile.removeAt(index-1));
                     emptytile = index;
+                    compteur += 1;
                   })
                 : ((index - Empty_Tile) == -nbcolbefore)
                   ? setState(() {
                     listeTile.insert(index, listeTile.removeAt(Empty_Tile));
                     listeTile.insert(Empty_Tile, listeTile.removeAt(index+1));
                     emptytile = index;
+                    compteur += 1;
                   })
                   : ((index - Empty_Tile) == -1)
                     ? setState(() {
                     listeTile.insert(index, listeTile.removeAt(Empty_Tile));
                     emptytile = index;
+                    compteur += 1;
                   })
                     : null
                 : ((index - Empty_Tile) == nbcolbefore) 
@@ -196,17 +245,20 @@ class PositionedTilesState extends State<PositionedTiles> {
                       listeTile.insert(index, listeTile.removeAt(Empty_Tile));
                       listeTile.insert(Empty_Tile, listeTile.removeAt(index-1));
                       emptytile = index;
+                      compteur += 1;
                     })
                   : ((index - Empty_Tile) == -nbcolbefore)
                     ? setState(() {
                       listeTile.insert(index, listeTile.removeAt(Empty_Tile));
                       listeTile.insert(Empty_Tile, listeTile.removeAt(index+1));
                       emptytile = index;
+                      compteur += 1;
                     })
                     : ((index - Empty_Tile).abs() == 1)
                       ? setState(() {
                         listeTile.insert(index, listeTile.removeAt(Empty_Tile));
                         emptytile = index;
+                        compteur += 1;
                     })
                       : null;
   }
@@ -250,10 +302,26 @@ creaList(int gridCount){
   }
   }
 
-  melange(){
+ melange(){
+      int nb_melange = 0;
+      switch(selectedDifficulty){
+        case 0:
+          nb_melange = 10;
+        break;
+        case 1:
+          nb_melange = 100;
+        break;
+        case 2:
+          nb_melange = 1000;
+        break;
+        case 3:
+         nb_melange = 10000;
+        break;
+      }
+
       if(first == true)
       {
-      for(int i = 0; i<10;i++)
+      for(int i = 0; i<nb_melange;i++)
         {
           print(i);
           bool test = true;

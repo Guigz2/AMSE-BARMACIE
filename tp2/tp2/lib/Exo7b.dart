@@ -16,8 +16,9 @@ math.Random random = new math.Random();
 class Tile2 {
   String imageURL;
   Alignment alignment;
+  int indice_init;
 
-  Tile2({required this.imageURL, required this.alignment});
+  Tile2({required this.imageURL, required this.alignment, required this.indice_init});
 }
 
 
@@ -45,6 +46,8 @@ class PositionedTilesState extends State<PositionedTiles> {
   int choix = 0;
 
   int selectedDifficulty = 0;
+
+  bool test_victory = false;
 
   List<Tile2> listeTile = [];
   
@@ -79,6 +82,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                       return GestureDetector(
                         onTap: (){
                           onPressedMethod(index,emptytile);
+                          ifVictory();
                         },
                         child: Container(
                             decoration: BoxDecoration(
@@ -157,6 +161,12 @@ class PositionedTilesState extends State<PositionedTiles> {
             },
       groupValue: selectedDifficulty,
         ),
+        if(test_victory)
+          Container(
+            width: screenLenght*0.30,
+            height: screenLenght*0.30,
+            child: Text("TU AS GAGN2 BRAVO")
+          ),
         ],
       ),
     );
@@ -232,7 +242,7 @@ class PositionedTilesState extends State<PositionedTiles> {
      ? setState(() {
         emptytile = math.Random().nextInt(nbcolbefore*nbcolbefore);
         listeTile.removeAt(emptytile);
-        listeTile.insert(emptytile, Tile2(imageURL: "https://img.freepik.com/photos-gratuite/surface-abstraite-textures-mur-pierre-beton-blanc_74190-8189.jpg?size=626&ext=jpg&ga=GA1.1.1908636980.1708732800&semt=ais", alignment: Alignment(0,0)));
+        listeTile.insert(emptytile, Tile2(imageURL: "https://img.freepik.com/photos-gratuite/surface-abstraite-textures-mur-pierre-beton-blanc_74190-8189.jpg?size=626&ext=jpg&ga=GA1.1.1908636980.1708732800&semt=ais", alignment: Alignment(0,0),indice_init: emptytile));
         
     })
     : null;
@@ -254,7 +264,7 @@ class PositionedTilesState extends State<PositionedTiles> {
     /*print("largeur : "+ largeur.toString());
     print("hauteur : "+ hauteur.toString());*/
 
-  Tile2 tileCrea = Tile2(imageURL:'https://picsum.photos/512',alignment: Alignment(largeur,hauteur));
+  Tile2 tileCrea = Tile2(imageURL:'https://picsum.photos/512',alignment: Alignment(largeur,hauteur),indice_init: indexTuile);
 
     return tileCrea;
   }
@@ -360,5 +370,18 @@ creaList(int gridCount){
           }
           first = false;
         }
+    }
+
+
+    ifVictory()
+    {
+      test_victory = true;
+      for(int i = 0; i < nbcolbefore*nbcolbefore;i++)
+      {
+        if(listeTile[i].indice_init != i)
+        {
+          test_victory = false;
+        }
+      }
     }
 }

@@ -10,7 +10,7 @@ import 'Exo6.dart' as Exo6;
 import 'Exo6b.dart' as Exo6b;
 import 'Exo6c.dart' as Exo6c;
 import 'Exo7.dart' as Exo7;
-//import 'Exo7a.dart' as Exo7a
+import 'Exo7a.dart' as Exo7a;
 import 'package:flutter/widgets.dart';
 
 
@@ -189,7 +189,7 @@ class MainApp extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Exo6c.PositionedTiles(),
+                        builder: (context) => Exo7a.PositionedTiles(),
                       ),
                     );
                   },

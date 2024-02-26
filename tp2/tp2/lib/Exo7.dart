@@ -243,8 +243,9 @@ creaList(int gridCount){
   melange(){
       if(first == true)
       {
-      for(int i = 0; i<1000;i++)
+      for(int i = 0; i<100;i++)
         {
+          print(i);
           bool test = true;
           while(test){
                   setState(() {
@@ -256,10 +257,10 @@ creaList(int gridCount){
                 if((emptytile)%nbcolbefore != 0)
                 {
                 setState(() {
-                  print("2");
+                  //print("2");
                     listeTile.insert(emptytile-1, listeTile.removeAt(emptytile));
                     emptytile = emptytile-1;
-                    print("3");
+                    //print("3");
                 });
                 test = false;
                 }
@@ -269,12 +270,12 @@ creaList(int gridCount){
               print("4");
                 if((emptytile-nbcolbefore + 1)%nbcolbefore != 0)
                 {
-                  print("5");
+                  //print("5");
                 setState(() {
-                  print("6");
+                  //print("6");
                     listeTile.insert(emptytile+1, listeTile.removeAt(emptytile));
                     emptytile = emptytile+1;
-                    print("7");
+                    //print("7");
                 });
                 test = false;
                 }
@@ -282,16 +283,14 @@ creaList(int gridCount){
 
               case 2:
               print("8");
-                if((emptytile-nbcolbefore) > 0)
+                if((emptytile-nbcolbefore) >= 0)
                 {
                   setState(() {
-                    print("10");
-                    print(emptytile);
-                    print(nbcolbefore);
+                    //print("10");
                     listeTile.insert(emptytile-nbcolbefore, listeTile.removeAt(emptytile));
-                    print("11");
+                    //print("11");
                     listeTile.insert(emptytile, listeTile.removeAt(emptytile-nbcolbefore+1));
-                    print("12");
+                    //print("12");
                     emptytile = emptytile-nbcolbefore;
                 });
                 test = false;
@@ -302,16 +301,16 @@ creaList(int gridCount){
               print("13");
                 if((emptytile+nbcolbefore) <= nbcolbefore*nbcolbefore-1)
                 {
-                  print("14");
+                  //print("14");
                 setState(() {
-                  print("15");
+                  //print("15");
                     listeTile.insert(emptytile+nbcolbefore, listeTile.removeAt(emptytile));
-                    print("16");
+                    //print("16");
                     listeTile.insert(emptytile, listeTile.removeAt(emptytile+nbcolbefore-1));
-                    print("17");
+                    //print("17");
                     emptytile = emptytile+nbcolbefore;
                 });
-                print("18");
+                //print("18");
                 test = false;
                 };
             }

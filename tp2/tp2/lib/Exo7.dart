@@ -116,7 +116,7 @@ class PositionedTilesState extends State<PositionedTiles> {
               Text("Nombre de Colonnes :" + nbcol.toInt().toString()),
               Expanded(child: Slider(
                           min:3,
-                          max: 20,
+                          max: 10,
                           value: nbcol,
                           onChanged: (double value){                            
                             setState((){

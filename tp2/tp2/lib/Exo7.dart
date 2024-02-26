@@ -12,16 +12,6 @@ import 'package:tp2/Exo4.dart';
 
 math.Random random = new math.Random();
 
-class Tile {
-  late Color color;
-
-  Tile(this.color);
-
-  Tile.randomColor() {
-    this.color = Color.fromARGB(255, random.nextInt(255), random.nextInt(255), random.nextInt(255));
-  }
-
-}
 
 class Tile2 {
   String imageURL;
@@ -35,29 +25,6 @@ class Tile2 {
 // Widgets
 // ==============
 
-class TileWidget extends StatelessWidget {
-  
-  final Tile tile;
-
-  TileWidget(this.tile);
-
-  @override
-  Widget build(BuildContext context) {
-    return this.coloredBox();
-  }
-
-  Widget coloredBox() {
-    return Container(
-        color: tile.color,
-        child: Padding(
-          padding: EdgeInsets.all(7.0),
-        ));
-  }
-
-  setColor(color){
-    tile.color = color;
-  }
-}
 
 void main() => runApp(new MaterialApp(home: PositionedTiles()));
 
@@ -68,7 +35,7 @@ class PositionedTiles extends StatefulWidget {
 
 class PositionedTilesState extends State<PositionedTiles> {
 
-  List<Widget> tiles = List<Widget>.generate(15, (index) => TileWidget(Tile.randomColor()));
+  //List<Widget> tiles = List<Widget>.generate(15, (index) => TileWidget(Tile.randomColor()));
   int emptytile = math.Random().nextInt(16);
   double nbcol = 4.0;
   int nbcolbefore = 4;
@@ -261,19 +228,19 @@ class PositionedTilesState extends State<PositionedTiles> {
     /*print("largeur : "+ largeur.toString());
     print("hauteur : "+ hauteur.toString());*/
 
-    Tile2 tileCrea = Tile2(imageURL:'https://picsum.photos/512',alignment: Alignment(largeur,hauteur));
+  Tile2 tileCrea = Tile2(imageURL:'https://picsum.photos/512',alignment: Alignment(largeur,hauteur));
 
     return tileCrea;
   }
 
 creaList(int gridCount){
-  print(gridCount);
+  //print(gridCount);
   for(int i=0;i<gridCount*gridCount;i++){
     listeTile.add(croppedImageTile(i, gridCount));
   }
   }
 
-    melange(){
+  melange(){
       if(first == true)
       {
       for(int i = 0; i<1000;i++)
@@ -285,53 +252,71 @@ creaList(int gridCount){
                 });
               switch (choix) {
               case 0:
+              print("1");
                 if((emptytile)%nbcolbefore != 0)
                 {
                 setState(() {
+                  print("2");
                     listeTile.insert(emptytile-1, listeTile.removeAt(emptytile));
                     emptytile = emptytile-1;
+                    print("3");
                 });
                 test = false;
                 }
                 break;
 
               case 1:
+              print("4");
                 if((emptytile-nbcolbefore + 1)%nbcolbefore != 0)
                 {
+                  print("5");
                 setState(() {
+                  print("6");
                     listeTile.insert(emptytile+1, listeTile.removeAt(emptytile));
                     emptytile = emptytile+1;
+                    print("7");
                 });
                 test = false;
                 }
                 break;
 
               case 2:
-                if((emptytile-nbcolbefore) >= 0)
+              print("8");
+                if((emptytile-nbcolbefore) > 0)
+                print("9");
                 {
-                setState(() {
-                    listeTile.insert(emptytile-4, listeTile.removeAt(emptytile));
-                    listeTile.insert(emptytile, listeTile.removeAt(emptytile-4+1));
-                    emptytile = emptytile-4;
+                  setState(() {
+                    print("10");
+                    print(emptytile);
+                    print(nbcolbefore);
+                    listeTile.insert(emptytile-nbcolbefore, listeTile.removeAt(emptytile));
+                    print("11");
+                    listeTile.insert(emptytile, listeTile.removeAt(emptytile-nbcolbefore+1));
+                    print("12");
+                    emptytile = emptytile-nbcolbefore;
                 });
                 test = false;
                 }
                 break;
 
               default:
+              print("13");
                 if((emptytile+nbcolbefore) <= nbcolbefore*nbcolbefore-1)
                 {
+                  print("14");
                 setState(() {
-                    listeTile.insert(emptytile+4, listeTile.removeAt(emptytile));
-                    listeTile.insert(emptytile, listeTile.removeAt(emptytile+4-1));
-                    emptytile = emptytile+4;
+                  print("15");
+                    listeTile.insert(emptytile+nbcolbefore, listeTile.removeAt(emptytile));
+                    print("16");
+                    listeTile.insert(emptytile, listeTile.removeAt(emptytile+nbcolbefore-1));
+                    print("17");
+                    emptytile = emptytile+nbcolbefore;
                 });
+                print("18");
                 test = false;
                 };
             }
           }
-
-
           }
           first = false;
         }

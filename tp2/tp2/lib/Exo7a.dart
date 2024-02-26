@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'package:flutter/cupertino.dart';
 import 'package:tp2/Exo4.dart';
-
+import 'Route.dart' as route;
 
 // ==============
 // Models
@@ -16,8 +16,9 @@ math.Random random = new math.Random();
 class Tile2 {
   String imageURL;
   Alignment alignment;
+  int indice_init;
 
-  Tile2({required this.imageURL, required this.alignment});
+  Tile2({required this.imageURL, required this.alignment, required this.indice_init});
 }
 
 
@@ -26,7 +27,11 @@ class Tile2 {
 // ==============
 
 
-void main() => runApp(new MaterialApp(home: PositionedTiles()));
+void main() => runApp(new MaterialApp(
+  home: PositionedTiles(),
+  routes:{
+    'Exo7a': (context) => PositionedTiles(),
+  }));
 
 class PositionedTiles extends StatefulWidget {
   @override
@@ -41,12 +46,10 @@ class PositionedTilesState extends State<PositionedTiles> {
   int nbcolbefore = 4;
   bool _isImageVisible = false;
   int compteur = 0;
-
   bool first = true;
-
-    int choix = 0;
-
+  int choix = 0;
   int selectedDifficulty = 0;
+  bool test_victory = false;
 
   List<Tile2> listeTile = [];
   
@@ -69,11 +72,12 @@ class PositionedTilesState extends State<PositionedTiles> {
           Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-            width: screenLenght*0.5,
-            height: screenLenght*0.5,
-            child:
-          GridView.builder(
+              if(test_victory == false)
+                Container(
+                width: screenLenght*0.5,
+                height: screenLenght*0.5,
+                child:
+                      GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: nbcolbefore, 
                       crossAxisSpacing: 4.0, 
@@ -85,6 +89,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                       return GestureDetector(
                         onTap: (){
                           onPressedMethod(index,emptytile);
+                          ifVictory();
                         },
                         child: Container(
                             decoration: BoxDecoration(
@@ -123,7 +128,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                     },
                   ),
                 ),
-                if (_isImageVisible) 
+                if (_isImageVisible || test_victory) 
                   Container(
                     width: screenLenght*0.5,
                     height: screenLenght*0.5, 
@@ -138,6 +143,7 @@ class PositionedTilesState extends State<PositionedTiles> {
             onPressed: () {
               setState(() {
                 _isImageVisible = !_isImageVisible;
+                PositionedTiles;
               });
             },
             child: Text("Afficher l'image d'origine"),
@@ -146,7 +152,7 @@ class PositionedTilesState extends State<PositionedTiles> {
             children: [
               Text("Nombre de Colonnes :" + nbcol.toInt().toString()),
               Expanded(child: Slider(
-                          min:3,
+                          min:2,
                           max: 10,
                           value: nbcol,
                           onChanged: (double value){                            
@@ -184,6 +190,28 @@ class PositionedTilesState extends State<PositionedTiles> {
             },
         groupValue: selectedDifficulty,
         ),
+        if(test_victory)
+                Container(
+                  alignment: Alignment.topCenter,
+                  width: screenLenght*0.30,
+                  height: screenLenght*0.10,
+                  child: Text(
+                    "Tu as gagné ! Bravo à toi !",
+                    style: TextStyle(
+                      fontSize: 24,
+                    )
+                    )
+                ),
+        if(test_victory)
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {// Réinitialisation des états du jeu à leur valeur initiale
+                      test_victory = false; // Réinitialise l'état de victoire
+                      Navigator.popAndPushNamed(context, 'Exo7a');
+                    });
+                  },
+                  child: Text("Reset"),
+                ),
         ],
       ),
     );
@@ -268,7 +296,7 @@ class PositionedTilesState extends State<PositionedTiles> {
      ? setState(() {
         emptytile = math.Random().nextInt(nbcolbefore*nbcolbefore);
         listeTile.removeAt(emptytile);
-        listeTile.insert(emptytile, Tile2(imageURL: "https://img.freepik.com/photos-gratuite/surface-abstraite-textures-mur-pierre-beton-blanc_74190-8189.jpg?size=626&ext=jpg&ga=GA1.1.1908636980.1708732800&semt=ais", alignment: Alignment(0,0)));
+        listeTile.insert(emptytile, Tile2(imageURL: "https://img.freepik.com/photos-gratuite/surface-abstraite-textures-mur-pierre-beton-blanc_74190-8189.jpg?size=626&ext=jpg&ga=GA1.1.1908636980.1708732800&semt=ais", alignment: Alignment(0,0),indice_init: emptytile));
         
     })
     : null;
@@ -290,7 +318,7 @@ class PositionedTilesState extends State<PositionedTiles> {
     /*print("largeur : "+ largeur.toString());
     print("hauteur : "+ hauteur.toString());*/
 
-  Tile2 tileCrea = Tile2(imageURL:'https://picsum.photos/512',alignment: Alignment(largeur,hauteur));
+  Tile2 tileCrea = Tile2(imageURL:'https://picsum.photos/512',alignment: Alignment(largeur,hauteur),indice_init: indexTuile);
 
     return tileCrea;
   }
@@ -396,5 +424,17 @@ creaList(int gridCount){
           }
           first = false;
         }
+    }
+
+  ifVictory()
+    {
+      test_victory = true;
+      for(int i = 0; i < nbcolbefore*nbcolbefore;i++)
+      {
+        if(listeTile[i].indice_init != i)
+        {
+          test_victory = false;
+        }
+      }
     }
 }

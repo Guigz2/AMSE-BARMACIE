@@ -395,7 +395,7 @@ class PositionedTilesState extends State<PositionedTiles> {
      ? setState(() {
         emptytile = math.Random().nextInt(nbcolbefore*nbcolbefore);
         listeTile.removeAt(emptytile);
-        listeTile.insert(emptytile, Tile2(imageURL: "https://img.freepik.com/photos-gratuite/surface-abstraite-textures-mur-pierre-beton-blanc_74190-8189.jpg?size=626&ext=jpg&ga=GA1.1.1908636980.1708732800&semt=ais", alignment: Alignment(0,0),indice_init: emptytile));
+        listeTile.insert(emptytile, Tile2(imageURL: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Fond_blanc.svg/1200px-Fond_blanc.svg.png", alignment: Alignment(0,0),indice_init: emptytile));
         
     })
     : null;

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:tp2/Exo4.dart';
 import 'Route.dart' as route;
 
@@ -27,13 +28,15 @@ class Tile2 {
 // ==============
 
 
-void main() => runApp(new MaterialApp(
-  home: PositionedTiles(),
+void main() => runApp(MaterialApp(
+  home: const PositionedTiles(),
   routes:{
     'Exo7a': (context) => PositionedTiles(),
   }));
 
 class PositionedTiles extends StatefulWidget {
+  const PositionedTiles({super.key});
+
   @override
   State<StatefulWidget> createState() => PositionedTilesState();
 }
@@ -62,13 +65,35 @@ class PositionedTilesState extends State<PositionedTiles> {
     double screenLenght = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      backgroundColor: Colors.red[200],
       appBar: AppBar(
-        title: Text("Moving Tiles"),
+        backgroundColor: Colors.red[700],
+        title: Text(
+          "Jeu de Taquin",
+          style: TextStyle(
+            fontSize: 40.0, 
+            fontWeight: FontWeight.bold, 
+            color: Colors.red[100],
+            letterSpacing: 2.0,
+            wordSpacing: 4.0,
+          ),
+        ),
         centerTitle: true,
       ),
       body: Column(
         children: [
-          Text("Nombre de déplacements : " + compteur.toString()),
+          const SizedBox(height : 20,),
+          Text(
+            "Nombre de déplacements : $compteur",
+            style: TextStyle(
+              fontSize: 20.0, 
+              fontWeight: FontWeight.bold,
+              color: Colors.red[700],
+              letterSpacing: 2.0,
+              wordSpacing: 4.0,
+            ),
+          ),
+          const SizedBox(height: 20,),
           Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -139,6 +164,7 @@ class PositionedTilesState extends State<PositionedTiles> {
                   ),
             ],
           ),
+          const SizedBox(height:20),
           ElevatedButton(
             onPressed: () {
               setState(() {
@@ -146,37 +172,79 @@ class PositionedTilesState extends State<PositionedTiles> {
                 PositionedTiles;
               });
             },
-            child: Text("Afficher l'image d'origine"),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Colors.red[700],),
+              foregroundColor: MaterialStateProperty.all(Colors.red[100]), 
+              overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                (Set<MaterialState> states) {
+                  if (states.contains(MaterialState.pressed)) return Colors.blueAccent; 
+                  return null;
+                },
+              ),
+              padding: MaterialStateProperty.all(EdgeInsets.all(16)),
+              textStyle: MaterialStateProperty.all(TextStyle(fontSize: 20)), 
+              elevation: MaterialStateProperty.all(10), 
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(0.0), 
+                ),
+              ),
+            ),
+            child: const Text("Afficher l'image d'origine"),
           ),
+          const SizedBox(height: 20),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("Nombre de Colonnes :" + nbcol.toInt().toString()),
-              Expanded(child: Slider(
-                          min:2,
-                          max: 10,
-                          value: nbcol,
-                          onChanged: (double value){                            
-                            setState((){
-                              nbcol = value;
-                            });
-                            if (nbcolbefore != nbcol.toInt())
-                            {
-                              setState(() {
-                                listeTile.clear();
-                                first = true;
-                                //creaList(nbcol.toInt());
-                                nbcolbefore = nbcol.toInt();
-                                compteur=0;
-                              });
-                              
-                            }
-                          },
-                        ),
+              Text(
+                "Nombre de Colonnes : ${nbcol.toInt()}",
+                style: TextStyle(
+                  fontSize: 17.0, 
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red[700],
+                  letterSpacing: 2.0,
+                  wordSpacing: 2.0,
+                ),
+              ),
+              Container(
+                width: screenLenght*0.3,
+                child: SliderTheme(
+                  data: SliderTheme.of(context).copyWith(
+                    activeTrackColor: Colors.red[700],
+                    inactiveTrackColor: Colors.red[100],
+                    trackHeight: 15.0,
+                    thumbShape: RoundSliderThumbShape(enabledThumbRadius: 1.0),
+                    thumbColor: Colors.redAccent,
+                    overlayColor: Colors.red.withAlpha(32),
+                    overlayShape: RoundSliderOverlayShape(overlayRadius: 28.0),
+                    activeTickMarkColor: Colors.red[700],
+                    inactiveTickMarkColor: Colors.red[100],
+                  ),
+                  child :Slider(
+                    min:2,
+                    max: 10,
+                    value: nbcol,
+                    onChanged: (double value){                            
+                      setState((){
+                        nbcol = value;
+                      });
+                      if (nbcolbefore != nbcol.toInt())
+                      {
+                        setState(() {
+                          listeTile.clear();
+                          first = true;
+                          nbcolbefore = nbcol.toInt();
+                          compteur=0;
+                        });
+                      }
+                    },
+                  ),
+                ),
               ),
             ],
           ),
           CupertinoSegmentedControl<int>(
-            children: {
+            children: const {
               0: Text('Easy'),
               1: Text('Medium'),
               2: Text('Hardore'),
@@ -186,31 +254,62 @@ class PositionedTilesState extends State<PositionedTiles> {
               setState(() {
                 selectedDifficulty = newValue;
                 compteur = 0;
-            }); 
+              }); 
             },
-        groupValue: selectedDifficulty,
+            groupValue: selectedDifficulty,
+            unselectedColor: Colors.red[100],
+            selectedColor: Colors.red[700],
+            borderColor: Colors.red[700],
+            pressedColor: Colors.blueAccent,
         ),
+        if(test_victory)
+                SizedBox(height:20),
         if(test_victory)
                 Container(
                   alignment: Alignment.topCenter,
-                  width: screenLenght*0.30,
-                  height: screenLenght*0.10,
-                  child: Text(
-                    "Tu as gagné ! Bravo à toi !",
-                    style: TextStyle(
-                      fontSize: 24,
-                    )
-                    )
+                  width: screenLenght*0.50,
+                  child: Center( 
+                    child : Text(
+                      "Tu as gagné ! Bravo à toi !",
+                      style: TextStyle(
+                        fontSize: 30.0, 
+                        fontWeight: FontWeight.bold, 
+                        color: Colors.red[700],
+                        letterSpacing: 2.0,
+                        wordSpacing: 4.0,
+                      ),
+                    ),
+                  ),
                 ),
+        if(test_victory)
+                SizedBox(height:20),
         if(test_victory)
                 ElevatedButton(
                   onPressed: () {
-                    setState(() {// Réinitialisation des états du jeu à leur valeur initiale
+                    setState(() { 
                       test_victory = false; // Réinitialise l'état de victoire
-                      Navigator.popAndPushNamed(context, 'Exo7a');
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => route.MyApp()));
                     });
                   },
-                  child: Text("Reset"),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.red[700],),
+                    foregroundColor: MaterialStateProperty.all(Colors.red[100]), 
+                    overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                      (Set<MaterialState> states) {
+                        if (states.contains(MaterialState.pressed)) return Colors.blueAccent; 
+                        return null;
+                      },
+                    ),
+                    padding: MaterialStateProperty.all(EdgeInsets.all(16)),
+                    textStyle: MaterialStateProperty.all(TextStyle(fontSize: 20)), 
+                    elevation: MaterialStateProperty.all(10), 
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(0.0), 
+                      ),
+                    ),
+                  ),
+                  child: const Text("Reset"),
                 ),
         ],
       ),
